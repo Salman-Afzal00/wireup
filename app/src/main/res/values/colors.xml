@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="green">#15a53f</color>
+    <color name="gray">#5d767b</color>
+    <color name="dark">#2d2f2f</color>
+    <color name="gray2">#444444</color>
+    <color name="white2">#f3f6f4</color>
+    <color name="light">#eeeeee</color>
+    <color name="background">#f5f9fd</color>
+    <color name="back">#e8f2fc</color>
+    <color name="gren">#6aa84f</color>
+    <color name="button">#ace0f9</color>
+    <color name="blue">#1e248b</color>
+    <color name="messageback">#e7ebf0 </color>
+    <color name="actionbar">#325959</color>
+    <color name="action">#7d7d7d </color>
+</resources>
