@@ -18,10 +18,11 @@ import com.google.firebase.database.FirebaseDatabase
 @Suppress("DEPRECATION")
 class Password : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var tvsignin:TextView
     private lateinit var btnnext2:Button
-    private lateinit var edtPass: TextInputEditText
-    private lateinit var edtConfirm:TextInputEditText
+    private lateinit var edtName:EditText
+    private lateinit var edtEmail:EditText
+    private lateinit var edtPass: EditText
+    private lateinit var edtConfirm:EditText
     private lateinit var dbuser:DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,30 +30,23 @@ class Password : AppCompatActivity() {
 
         supportActionBar?.hide()
         mAuth= FirebaseAuth.getInstance()
-
+        edtName=findViewById(R.id.edtName)
+        edtEmail=findViewById(R.id.edtEmail)
         edtPass=findViewById(R.id.edtPass)
-        edtPass.setOnFocusChangeListener { _, hasFocus ->
-
-        }
         edtConfirm=findViewById(R.id.edtConfirm)
-        edtConfirm.setOnFocusChangeListener { v, hasFocus ->
 
-        }
-        tvsignin=findViewById(R.id.tvsignin)
-        tvsignin.setOnClickListener {
-            startActivity(Intent(this,LoginActivity::class.java))
-            finish()
-        }
+
         btnnext2=findViewById(R.id.btnnext2)
 
 
 
             btnnext2.setOnClickListener {
+                var name=edtName.text.toString()
+                var email=edtEmail.text.toString()
                 var password=edtPass.text.toString()
                 var confirm=edtConfirm.text.toString()
                 if (password==confirm){
-                    var email=intent.getStringExtra("EMAIL").toString()
-                    var name=intent.getStringExtra("NAME").toString()
+
                     signup(name,email,password)
                 }
                 else{

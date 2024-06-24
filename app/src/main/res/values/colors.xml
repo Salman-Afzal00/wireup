@@ -16,4 +16,5 @@
     <color name="messageback">#e7ebf0 </color>
     <color name="actionbar">#325959</color>
     <color name="action">#7d7d7d </color>
+    <color name="backui">#f3f6f4</color>
 </resources>
