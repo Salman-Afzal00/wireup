@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.User
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        supportActionBar?.hide()
         mAuth= FirebaseAuth.getInstance()
         dbuser=FirebaseDatabase.getInstance().getReference()
         userList= ArrayList()
@@ -62,17 +63,4 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.bar_menu, menu)
-        return true
-    }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
-        R.id.search -> Toast.makeText(this, "you clicked on search", Toast.LENGTH_SHORT).show()
-            R.id.logout->
-            {mAuth.signOut()
-            startActivity(Intent(this,LoginActivity::class.java))}
-        }
-        return true
-        }
     }
