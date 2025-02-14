@@ -17,7 +17,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class TaskFragment : Fragment() {
 
     private val taskViewModel: TaskViewModel by viewModels {
-        TaskViewModelFactory((requireActivity().application as MyApplication).repository)
+        TaskViewModelFactory(
+            (requireActivity().application as MyApplication).taskRepository,
+            (requireActivity().application as MyApplication).noteRepository
+        )
     }
 
     // Register for activity result

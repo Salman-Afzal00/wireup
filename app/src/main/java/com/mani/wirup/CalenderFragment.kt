@@ -16,7 +16,10 @@ import java.util.*
 class CalenderFragment : Fragment() {
 
     private val taskViewModel: TaskViewModel by viewModels {
-        TaskViewModelFactory((requireActivity().application as MyApplication).repository)
+        TaskViewModelFactory(
+            (requireActivity().application as MyApplication).taskRepository,
+            (requireActivity().application as MyApplication).noteRepository
+        )
     }
 
     override fun onCreateView(

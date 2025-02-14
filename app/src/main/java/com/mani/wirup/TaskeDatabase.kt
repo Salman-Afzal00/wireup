@@ -1,13 +1,18 @@
 package com.mani.wirup
-
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import android.content.Context
 
-@Database(entities = [Task::class], version = 1, exportSchema = false)
+@Database(
+    entities = [Task::class, Note::class], // Include both Task and Note entities
+    version = 2, // Increment the version number
+    exportSchema = false
+)
 abstract class AppDatabase : RoomDatabase() {
+
     abstract fun taskDao(): TaskDao
+    abstract fun noteDao(): NoteDao // Add NoteDao
 
     companion object {
         @Volatile
@@ -18,8 +23,10 @@ abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "task_database"
-                ).build()
+                    "app_database"
+                )
+                    .fallbackToDestructiveMigration() // Handle schema changes
+                    .build()
                 INSTANCE = instance
                 instance
             }
