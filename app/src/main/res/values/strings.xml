@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">WireUp</string>
-    <string name="default_web_client_id" />
+    <string name="default_web_client_id">637082356016-vcqmafqsvgi5013p2jbtci8oulufuit5.apps.googleusercontent.com</string>
     <string name="password">Password</string>
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

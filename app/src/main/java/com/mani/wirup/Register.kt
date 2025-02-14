@@ -10,7 +10,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import com.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -87,7 +86,6 @@ class Register : AppCompatActivity() {
                 mAuth.currentUser?.displayName
                 val name=mAuth.currentUser?.displayName.toString()
                 mAuth.currentUser?.uid.toString()
-                addUserToDatabase(emai,name,mAuth.currentUser?.uid!!)
                 startActivity(Intent(this,MainActivity::class.java))
                 finish()
             }
@@ -96,10 +94,6 @@ class Register : AppCompatActivity() {
 
             }
         }
-    }
-    private fun addUserToDatabase(email: String, name: String, uid: String){
-        dbuser= FirebaseDatabase.getInstance().getReference()
-        dbuser.child("user").child(uid).setValue(User(name,email,uid))
     }
 
 

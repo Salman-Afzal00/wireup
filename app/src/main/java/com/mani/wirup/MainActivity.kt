@@ -11,10 +11,10 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.User
-import com.UserAdapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -26,41 +26,43 @@ import java.util.Objects
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var dbuser:DatabaseReference
-    private lateinit var userRecyclerView: RecyclerView
-    private lateinit var userList:ArrayList<User>
-    private lateinit var adapter: UserAdapter
+    private lateinit var dbuser: DatabaseReference
+    private lateinit var bottomNavigationView: BottomNavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
-        mAuth= FirebaseAuth.getInstance()
-        dbuser=FirebaseDatabase.getInstance().getReference()
-        userList= ArrayList()
-        adapter= UserAdapter(this,userList)
+        mAuth = FirebaseAuth.getInstance()
+        dbuser = FirebaseDatabase.getInstance().getReference()
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
 
-        userRecyclerView=findViewById(R.id.recycle)
-        userRecyclerView.layoutManager=LinearLayoutManager(this)
-        userRecyclerView.adapter=adapter
-
-        dbuser.child("user").addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-              userList.clear()
-                for (postSnapshot in snapshot.children){
-                    val currentUser=postSnapshot.getValue(User::class.java)
-
-                    if (mAuth.currentUser?.uid!=currentUser?.uid){
-                        userList.add(currentUser!!)
-                    }
+        bottomNavigationView.setOnItemSelectedListener {menuItem ->
+            when(menuItem.itemId){
+                R.id.calender -> {
+                    replaceFragment(CalenderFragment())
+                    true
                 }
-                adapter.notifyDataSetChanged()
+                R.id.client -> {
+                    replaceFragment(ClientFragment())
+                    true
+                }
+                R.id.task -> {
+                    replaceFragment(TaskFragment())
+                    true
+                }
+                R.id.note -> {
+                    replaceFragment(NotesFragment())
+                    true
+                }
+                else -> false
+
             }
 
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-        })
+        }
+        replaceFragment(CalenderFragment())
 
     }
+    private fun replaceFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container,fragment).commit()
     }
+}

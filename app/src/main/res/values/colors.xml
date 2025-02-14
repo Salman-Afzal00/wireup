@@ -12,10 +12,11 @@
     <color name="back">#e8f2fc</color>
     <color name="gren">#6aa84f</color>
     <color name="button">#ace0f9</color>
-    <color name="blue">#1e248b</color>
+    <color name="blue">#005fb6</color>
     <color name="messageback">#e7ebf0 </color>
     <color name="actionbar">#325959</color>
     <color name="action">#7d7d7d </color>
     <color name="backui">#f3f6f4</color>
-    <color name="light_blue">#3d85c6</color>
+    <color name="light_blue">#b7d3ed</color>
+    <color name="task_bg">#f5f8ff</color>
 </resources>

@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import com.User
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -71,7 +70,6 @@ class Password : AppCompatActivity() {
                                 task ->
                             if(task.isSuccessful){
 
-                                addUserToDatabase(name,email,mAuth.currentUser?.uid!!)
 
                                 startActivity(Intent(this,signupok::class.java))
                             }
@@ -86,8 +84,5 @@ class Password : AppCompatActivity() {
             }
     }
 
-    private fun addUserToDatabase(name: String, email: String, uid:String){
-        dbuser=FirebaseDatabase.getInstance().getReference()
-        dbuser.child("user").child(uid).setValue(User(name, email, uid))
-    }
+
 }

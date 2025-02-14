@@ -26,8 +26,23 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
-    <style name="Theme.Main" parent="Theme.AppCompat.DayNight."/>
+    <style name="Theme.Main" parent="Theme.AppCompat.DayNight.">
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
     <style name="Theme.signupok" parent="Theme.AppCompat"/>
     <style name="Theme.SignUp" parent="Base.CardView"/>
     <style name="Theme.Wirup" parent="Base.Theme.Wirup" />
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator" >
+        <item name="android:color">@color/light_blue</item>
+        <item name="android:height">28dp</item> <!-- Adjust height -->
+        <item name="android:width">58dp</item> <!-- Adjust width -->
+    </style>
+    <style name="fab_square" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
 </resources>
