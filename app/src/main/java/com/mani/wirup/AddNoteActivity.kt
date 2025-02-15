@@ -12,6 +12,8 @@ import java.util.*
 
 class AddNoteActivity : AppCompatActivity() {
 
+    private var note: Note? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_note)
@@ -21,6 +23,15 @@ class AddNoteActivity : AppCompatActivity() {
         val editTextContent = findViewById<EditText>(R.id.editTextContent)
         val editTextDate = findViewById<EditText>(R.id.editTextDate)
         val buttonSaveNote = findViewById<Button>(R.id.buttonSaveNote)
+
+        // Check if a note was passed for editing
+        note = intent.getParcelableExtra("NOTE")
+        if (note != null) {
+            // Populate the fields with the note's data
+            editTextTitle.setText(note?.title)
+            editTextContent.setText(note?.content)
+            editTextDate.setText(note?.date)
+        }
 
         // Set up date picker for the date field
         editTextDate.setOnClickListener {
@@ -34,16 +45,20 @@ class AddNoteActivity : AppCompatActivity() {
             val date = editTextDate.text.toString()
 
             if (title.isNotEmpty() && content.isNotEmpty() && date.isNotEmpty()) {
-                // Create a new Note object
-                val note = Note(
+                // Create or update the Note object
+                val updatedNote = note?.copy(
+                    title = title,
+                    content = content,
+                    date = date
+                ) ?: Note(
                     title = title,
                     content = content,
                     date = date
                 )
 
-                // Return the note to the calling activity
+                // Return the updated/created note to the calling activity
                 val resultIntent = Intent().apply {
-                    putExtra("NOTE", note)
+                    putExtra("NOTE", updatedNote)
                 }
                 setResult(RESULT_OK, resultIntent)
                 finish()

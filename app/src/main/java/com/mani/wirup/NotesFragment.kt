@@ -29,7 +29,15 @@ class NotesFragment : Fragment() {
     ) { result ->
         if (result.resultCode == RESULT_OK) {
             val note = result.data?.getParcelableExtra<Note>("NOTE")
-            note?.let { noteViewModel.insert(it) }
+            note?.let { updatedNote ->
+                if (updatedNote.id == 0L) {
+                    // Insert new note
+                    noteViewModel.insert(updatedNote)
+                } else {
+                    // Update existing note
+                    noteViewModel.update(updatedNote)
+                }
+            }
         }
     }
 
@@ -41,7 +49,11 @@ class NotesFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewNotes)
         val adapter = NoteAdapter(emptyList()) { note ->
-            noteViewModel.update(note)
+            // Launch AddNoteActivity for editing
+            val intent = Intent(requireContext(), AddNoteActivity::class.java).apply {
+                putExtra("NOTE", note)
+            }
+            addNoteLauncher.launch(intent)
         }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -52,7 +64,7 @@ class NotesFragment : Fragment() {
 
         val fabAddNote = view.findViewById<FloatingActionButton>(R.id.fabAddNote)
         fabAddNote.setOnClickListener {
-            // Launch the AddNoteActivity
+            // Launch AddNoteActivity for adding a new note
             val intent = Intent(requireContext(), AddNoteActivity::class.java)
             addNoteLauncher.launch(intent)
         }

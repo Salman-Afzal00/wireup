@@ -1,4 +1,5 @@
 package com.mani.wirup
+
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-
+@Suppress("DEPRECATION")
 class TaskFragment : Fragment() {
 
     private val taskViewModel: TaskViewModel by viewModels {
@@ -43,6 +44,7 @@ class TaskFragment : Fragment() {
         // Initialize RecyclerView
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         val adapter = TaskAdapter(emptyList()) { task ->
+            // Update the task when the checkbox is clicked
             taskViewModel.update(task)
         }
         recyclerView.adapter = adapter

@@ -26,6 +26,7 @@
         android:id="@+id/taskDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toStartOf="@id/taskCheckBox"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,6 +37,8 @@
         android:id="@+id/taskTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+
+        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/taskDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/taskCheckBox"
@@ -46,9 +49,9 @@
         android:id="@+id/taskCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:text="Completed"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        tools:layout_editor_absoluteY="16dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

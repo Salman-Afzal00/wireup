@@ -32,18 +32,19 @@ class TaskAdapter(
 
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val taskTitle: TextView = itemView.findViewById(R.id.taskTitle)
-        //private val taskDescription: TextView = itemView.findViewById(R.id.taskDescription)
         private val taskDate: TextView = itemView.findViewById(R.id.taskDate)
         private val taskTime: TextView = itemView.findViewById(R.id.taskTime)
         private val taskCheckBox: CheckBox = itemView.findViewById(R.id.taskCheckBox)
 
         fun bind(task: Task) {
             taskTitle.text = task.title
-            //taskDescription.text = task.description
             taskDate.text = task.date
             taskTime.text = task.time
+
+            // Set the CheckBox state based on the task's completion status
             taskCheckBox.isChecked = task.isCompleted
 
+            // Update the task's completion status when the CheckBox is clicked
             taskCheckBox.setOnCheckedChangeListener { _, isChecked ->
                 task.isCompleted = isChecked
                 onTaskChecked(task)
