@@ -19,7 +19,8 @@ class NotesFragment : Fragment() {
     private val noteViewModel: NoteViewModel by viewModels {
         TaskViewModelFactory(
             (requireActivity().application as MyApplication).taskRepository,
-            (requireActivity().application as MyApplication).noteRepository
+            (requireActivity().application as MyApplication).noteRepository,
+            (requireActivity().application as MyApplication).clientRepository
         )
     }
 
@@ -48,20 +49,28 @@ class NotesFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_notes, container, false)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewNotes)
-        val adapter = NoteAdapter(emptyList()) { note ->
-            // Launch AddNoteActivity for editing
-            val intent = Intent(requireContext(), AddNoteActivity::class.java).apply {
-                putExtra("NOTE", note)
+        val adapter = NoteAdapter(
+            onNoteClicked = { note ->
+                // Launch AddNoteActivity for editing the note
+                val intent = Intent(requireContext(), AddNoteActivity::class.java).apply {
+                    putExtra("NOTE", note)
+                }
+                addNoteLauncher.launch(intent)
+            },
+            onNoteDeleted = { note ->
+                // Handle note deletion
+                noteViewModel.delete(note.id)
             }
-            addNoteLauncher.launch(intent)
-        }
+        )
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        // Observe notes from the ViewModel
         noteViewModel.allNotes.observe(viewLifecycleOwner, Observer { notes ->
-            notes?.let { adapter.updateNotes(it) }
+            notes?.let { adapter.submitList(it) } // Use submitList for ListAdapter
         })
 
+        // Floating Action Button (FAB) for adding a new note
         val fabAddNote = view.findViewById<FloatingActionButton>(R.id.fabAddNote)
         fabAddNote.setOnClickListener {
             // Launch AddNoteActivity for adding a new note

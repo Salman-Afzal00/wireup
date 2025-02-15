@@ -8,7 +8,7 @@
     android:padding="16dp"
     android:layout_margin="10dp">
 
-
+    <!-- Task Title -->
     <TextView
         android:id="@+id/taskTitle"
         android:layout_width="0dp"
@@ -18,43 +18,54 @@
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/taskCheckBox"
+        app:layout_constraintEnd_toStartOf="@id/taskButton"
         android:layout_marginEnd="8dp" />
 
-
+    <!-- Task Date -->
     <TextView
         android:id="@+id/taskDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@id/taskCheckBox"
+        app:layout_constraintEnd_toStartOf="@id/taskButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/taskTitle" />
+        app:layout_constraintTop_toBottomOf="@id/taskTitle" />
 
     <!-- Task Time -->
     <TextView
         android:id="@+id/taskTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/taskDate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/taskCheckBox"
+        app:layout_constraintEnd_toStartOf="@id/taskButton"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp" />
 
-    <CheckBox
-        android:id="@+id/taskCheckBox"
+    <!-- Task CheckBox -->
+    <Button
+        android:id="@+id/taskButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="40dp"
-        android:text="Completed"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:drawableStart="@drawable/ic_add"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deleteButton" />
+
+    <!-- Delete Button -->
+    <ImageButton
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/remove"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        android:layout_marginEnd="8dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

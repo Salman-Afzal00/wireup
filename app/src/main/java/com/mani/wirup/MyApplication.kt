@@ -13,4 +13,9 @@ class MyApplication : Application() {
         val database = AppDatabase.getDatabase(this)
         NoteRepository(database.noteDao())
     }
+
+    val clientRepository: ClientRepository by lazy {
+        val database = AppDatabase.getDatabase(this)
+        ClientRepository(database.clientDao())
+    }
 }

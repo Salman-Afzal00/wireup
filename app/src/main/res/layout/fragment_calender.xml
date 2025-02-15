@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".CalenderFragment"
+    >
 
     <TextView
         android:id="@+id/tvSchedule"
@@ -21,7 +23,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Calendar View -->
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="0dp"
@@ -30,7 +31,6 @@
         app:layout_constraintTop_toBottomOf="@id/tvSchedule"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
     <TextView
         android:id="@+id/tvTasks"
         android:layout_width="wrap_content"
@@ -42,6 +42,22 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+
+    <Button
+        android:id="@+id/btnaddtask"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:text="+ Add Task"
+        android:textSize="15sp"
+        android:paddingEnd="3dp"
+        android:paddingStart="3dp"
+        android:textColor="@color/black"
+        android:background="@drawable/button_bg"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/tvTasks"
+        app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+
 
 
 

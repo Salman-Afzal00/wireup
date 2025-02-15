@@ -20,7 +20,8 @@ class TaskFragment : Fragment() {
     private val taskViewModel: TaskViewModel by viewModels {
         TaskViewModelFactory(
             (requireActivity().application as MyApplication).taskRepository,
-            (requireActivity().application as MyApplication).noteRepository
+            (requireActivity().application as MyApplication).noteRepository,
+            (requireActivity().application as MyApplication).clientRepository
         )
     }
 
@@ -43,16 +44,17 @@ class TaskFragment : Fragment() {
 
         // Initialize RecyclerView
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-        val adapter = TaskAdapter(emptyList()) { task ->
-            // Update the task when the checkbox is clicked
-            taskViewModel.update(task)
-        }
+        val adapter = TaskAdapter(
+            onTaskChecked = { task -> taskViewModel.update(task) },
+            onTaskDeleted = { task -> taskViewModel.delete(task.id) },
+            showButtons = true // Show buttons in TaskFragment
+        )
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        // Observe tasks from the ViewModel
+// Observe tasks from the ViewModel
         taskViewModel.allTasks.observe(viewLifecycleOwner, Observer { tasks ->
-            tasks?.let { adapter.updateTasks(it) }
+            tasks?.let { adapter.submitList(it) } // Use submitList for ListAdapter
         })
 
         // Initialize Floating Action Button (FAB)

@@ -5,7 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 
 class TaskViewModelFactory(
     private val taskRepository: TaskRepository,
-    private val noteRepository: NoteRepository
+    private val noteRepository: NoteRepository,
+    private val clientRepository: ClientRepository // Add ClientRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TaskViewModel::class.java)) {
@@ -15,6 +16,10 @@ class TaskViewModelFactory(
         if (modelClass.isAssignableFrom(NoteViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return NoteViewModel(noteRepository) as T
+        }
+        if (modelClass.isAssignableFrom(ClientViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return ClientViewModel(clientRepository) as T // Add ClientViewModel support
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

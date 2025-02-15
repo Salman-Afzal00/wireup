@@ -13,5 +13,5 @@ data class Task(
     val description: String,
     val date: String,
     val time: String,
-    var isCompleted: Boolean = false
+    val isCompleted: Boolean = false
 ) : Parcelable

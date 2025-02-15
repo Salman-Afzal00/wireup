@@ -16,7 +16,7 @@ interface TaskDao {
     @Query("DELETE FROM tasks WHERE id = :taskId")
     suspend fun delete(taskId: Long)
 
-    @Query("SELECT * FROM tasks WHERE date = :date ORDER BY time ASC")
+    @Query("SELECT * FROM tasks WHERE date = :date ORDER BY id DESC")
     fun getTasksByDate(date: String): LiveData<List<Task>>
 
 }

@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/calender"
-        android:title="Calender"
+        android:title="Schedule"
         android:icon="@drawable/calendar_minus"
         android:iconTint="@color/black"
         />

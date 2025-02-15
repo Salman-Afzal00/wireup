@@ -5,19 +5,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
+class NoteViewModel(
+    private val noteRepository: NoteRepository
+) : ViewModel() {
 
-    val allNotes: LiveData<List<Note>> = repository.allNotes
+    val allNotes: LiveData<List<Note>> = noteRepository.allNotes
 
     fun insert(note: Note) = viewModelScope.launch {
-        repository.insert(note)
+        noteRepository.insert(note)
     }
 
     fun update(note: Note) = viewModelScope.launch {
-        repository.update(note)
+        noteRepository.update(note)
     }
 
-    fun delete(note: Note) = viewModelScope.launch {
-        repository.delete(note)
+    fun delete(noteId: Long) = viewModelScope.launch {
+        noteRepository.delete(noteId)
     }
 }

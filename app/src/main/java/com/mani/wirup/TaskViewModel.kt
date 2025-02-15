@@ -5,24 +5,26 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
+class TaskViewModel(
+    private val taskrepository: TaskRepository
+    ) : ViewModel() {
 
-    val allTasks: LiveData<List<Task>> = repository.allTasks
+    val allTasks: LiveData<List<Task>> = taskrepository.allTasks
 
     fun getTasksByDate(date: String): LiveData<List<Task>> {
-        return repository.getTasksByDate(date)
+        return taskrepository.getTasksByDate(date)
     }
 
     fun insert(task: Task) = viewModelScope.launch {
-        repository.insert(task)
+        taskrepository.insert(task)
     }
 
     fun update(task: Task) = viewModelScope.launch {
-        repository.update(task)
+        taskrepository.update(task)
     }
 
     fun delete(taskId: Long) = viewModelScope.launch {
-        repository.delete(taskId)
+        taskrepository.delete(taskId)
     }
 
 

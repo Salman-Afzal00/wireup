@@ -32,13 +32,16 @@
         android:layout_marginEnd="8dp" />
 
 
-    <TextView
-        android:id="@+id/noteDate"
-        android:layout_width="0dp"
+    <ImageButton
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/noteContent" />
+        android:src="@drawable/remove"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp" />
 
 
 

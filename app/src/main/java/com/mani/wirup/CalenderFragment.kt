@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -20,7 +19,8 @@ class CalenderFragment : Fragment() {
     private val taskViewModel: TaskViewModel by viewModels {
         TaskViewModelFactory(
             (requireActivity().application as MyApplication).taskRepository,
-            (requireActivity().application as MyApplication).noteRepository
+            (requireActivity().application as MyApplication).noteRepository,
+            (requireActivity().application as MyApplication).clientRepository
         )
     }
 
@@ -28,17 +28,22 @@ class CalenderFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_calender, container, false)
 
         // Initialize CalendarView
         val calendarView = view.findViewById<CalendarView>(R.id.calendarView)
         val recyclerViewTasks = view.findViewById<RecyclerView>(R.id.recyclerViewTasks)
-        val emptyView = view.findViewById<ImageView>(R.id.emptyView) // TextView to show "Empty" message
+        val emptyView = view.findViewById<ImageView>(R.id.emptyView) // ImageView to show "Empty" message
 
-        val adapter = TaskAdapter(emptyList()) { task ->
-            taskViewModel.update(task)
-        }
+        // Initialize the adapter
+        val adapter = TaskAdapter(
+            onTaskChecked = { task -> taskViewModel.update(task) },
+            onTaskDeleted = { task -> taskViewModel.delete(task.id) },
+            showButtons = false // Hide buttons in CalendarFragment
+            // Disable checkbox in CalendarFragment
+        )
         recyclerViewTasks.adapter = adapter
         recyclerViewTasks.layoutManager = LinearLayoutManager(requireContext())
 
@@ -48,7 +53,7 @@ class CalenderFragment : Fragment() {
         // Load tasks for the current date by default
         taskViewModel.getTasksByDate(currentDate).observe(viewLifecycleOwner, Observer { tasks ->
             tasks?.let {
-                adapter.updateTasks(it)
+                adapter.submitList(it) // Use submitList for ListAdapter
                 // Show "Empty" message if no tasks are available
                 if (it.isEmpty()) {
                     recyclerViewTasks.visibility = View.GONE
@@ -65,7 +70,7 @@ class CalenderFragment : Fragment() {
             val selectedDate = formatDate(year, month, dayOfMonth)
             taskViewModel.getTasksByDate(selectedDate).observe(viewLifecycleOwner, Observer { tasks ->
                 tasks?.let {
-                    adapter.updateTasks(it)
+                    adapter.submitList(it) // Use submitList for ListAdapter
                     // Show "Empty" message if no tasks are available
                     if (it.isEmpty()) {
                         recyclerViewTasks.visibility = View.GONE
