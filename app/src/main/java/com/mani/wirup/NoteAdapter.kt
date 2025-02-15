@@ -38,6 +38,7 @@ class NoteAdapter(
             noteContent.text = note.content
             noteDate.text = note.date
 
+            // Handle note click
             itemView.setOnClickListener {
                 onNoteClicked(note)
             }

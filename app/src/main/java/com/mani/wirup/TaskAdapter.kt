@@ -1,5 +1,6 @@
 package com.mani.wirup
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,11 +42,14 @@ class TaskAdapter(
             taskDate.text = task.date
             taskTime.text = task.time
 
+            Log.d("TaskAdapter", "Binding task: ${task.title}, isCompleted: ${task.isCompleted}")
+
             // Set the CheckBox state based on the task's completion status
             taskCheckBox.isChecked = task.isCompleted
 
             // Update the task's completion status when the CheckBox is clicked
             taskCheckBox.setOnCheckedChangeListener { _, isChecked ->
+                Log.d("TaskAdapter", "CheckBox clicked for task: ${task.title}, isChecked: $isChecked")
                 task.isCompleted = isChecked
                 onTaskChecked(task)
             }
