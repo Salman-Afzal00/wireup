@@ -4,60 +4,90 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AddTaskActivity : AppCompatActivity() {
 
+    private lateinit var clientViewModel: ClientViewModel
+    private lateinit var spinnerClient: Spinner
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_task)
 
-        // Find views in the layout
+        // Initialize views
         val editTextTitle = findViewById<EditText>(R.id.editTextTitle)
-        val editTextDescription = findViewById<EditText>(R.id.editTextDescription)
         val editTextDate = findViewById<EditText>(R.id.editTextDate)
         val editTextTime = findViewById<EditText>(R.id.editTextTime)
+        val spinnerPriority = findViewById<Spinner>(R.id.spinnerPriority)
+        spinnerClient = findViewById(R.id.spinnerClient)
+        val editTextDuration = findViewById<EditText>(R.id.editTextDuration)
         val buttonAddTask = findViewById<Button>(R.id.buttonAddTask)
 
-        // Set up date picker for the date field
-        editTextDate.setOnClickListener {
-            showDatePicker(editTextDate)
+        // Set up priority spinner
+        val priorityOptions = arrayOf("High", "Medium", "Low")
+        val priorityAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, priorityOptions)
+        priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerPriority.adapter = priorityAdapter
+
+        // Set up client spinner
+        clientViewModel = ViewModelProvider(this, TaskViewModelFactory(
+            TaskRepository(AppDatabase.getDatabase(this).taskDao()),
+            NoteRepository(AppDatabase.getDatabase(this).noteDao()),
+            ClientRepository(AppDatabase.getDatabase(this).clientDao())
+        )).get(ClientViewModel::class.java)
+
+        val clientAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item)
+        clientAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerClient.adapter = clientAdapter
+
+        // Observe clients and populate the spinner
+        clientViewModel.allClients.observe(this) { clients ->
+            val clientNames = clients.map { it.name }
+            clientAdapter.clear()
+            clientAdapter.addAll(clientNames)
+            clientAdapter.notifyDataSetChanged()
         }
 
-        // Set up time picker for the time field
-        editTextTime.setOnClickListener {
-            showTimePicker(editTextTime)
-        }
+        // Set up date and time pickers
+        editTextDate.setOnClickListener { showDatePicker(editTextDate) }
+        editTextTime.setOnClickListener { showTimePicker(editTextTime) }
 
-        // Handle the "Add Task" button click
+        // Handle "Add Task" button click
         buttonAddTask.setOnClickListener {
             val title = editTextTitle.text.toString()
-            val description = editTextDescription.text.toString()
             val date = editTextDate.text.toString()
             val time = editTextTime.text.toString()
+            val priority = spinnerPriority.selectedItem.toString().lowercase()
+            val clientName = spinnerClient.selectedItem.toString()
+            val duration = editTextDuration.text.toString().toLongOrNull() ?: 0
 
-            if (title.isNotEmpty() && description.isNotEmpty() && date.isNotEmpty() && time.isNotEmpty()) {
-                // Create a new Task object
-                val task = Task(
-                    title = title,
-                    description = description,
-                    date = date,
-                    time = time
-                )
+            if (title.isNotEmpty() && date.isNotEmpty() && time.isNotEmpty() && duration > 0) {
+                // Get the selected client's ID
+                clientViewModel.allClients.value?.find { it.name == clientName }?.let { client ->
+                    val task = Task(
+                        title = title,
+                        date = date,
+                        time = time,
+                        priority = priority,
+                        clientId = client.id, // Associate task with client
+                        duration = duration
+                    )
 
-                // Return the task to the calling activity
-                val resultIntent = Intent().apply {
-                    putExtra("TASK", task)
+                    // Return the task to the calling activity
+                    val resultIntent = Intent().apply {
+                        putExtra("TASK", task)
+                    }
+                    setResult(RESULT_OK, resultIntent)
+                    finish()
+                } ?: run {
+                    Toast.makeText(this, "Please select a client", Toast.LENGTH_SHORT).show()
                 }
-                setResult(RESULT_OK, resultIntent)
-                finish()
             } else {
-                // Show an error message if any field is empty
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             }
         }

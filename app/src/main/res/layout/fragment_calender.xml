@@ -20,6 +20,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/calendarView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.408"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,10 +28,16 @@
         android:id="@+id/calendarView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tvSchedule"
+        android:layout_marginTop="8dp"
+        android:dateTextAppearance="@style/CalendarDateTextAppearance"
+        android:maxHeight="200dp"
+        android:minHeight="200dp"
+        android:weekDayTextAppearance="@style/CalendarWeekDayTextAppearance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvSchedule" />
+
     <TextView
         android:id="@+id/tvTasks"
         android:layout_width="wrap_content"
@@ -42,23 +49,6 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
-
-    <Button
-        android:id="@+id/btnaddtask"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginStart="15dp"
-        android:text="+ Add Task"
-        android:textSize="15sp"
-        android:paddingEnd="3dp"
-        android:paddingStart="3dp"
-        android:textColor="@color/black"
-        android:background="@drawable/button_bg"
-        android:textAllCaps="false"
-        app:layout_constraintStart_toEndOf="@+id/tvTasks"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView" />
-
-
 
 
     <!-- RecyclerView -->

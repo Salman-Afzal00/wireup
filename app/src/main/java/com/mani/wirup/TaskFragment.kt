@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-@Suppress("DEPRECATION")
 class TaskFragment : Fragment() {
 
     private val taskViewModel: TaskViewModel by viewModels {
@@ -25,7 +24,6 @@ class TaskFragment : Fragment() {
         )
     }
 
-    // Register for activity result
     private val addTaskLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -39,28 +37,58 @@ class TaskFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_task, container, false)
 
-        // Initialize RecyclerView
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-        val adapter = TaskAdapter(
-            onTaskChecked = { task -> taskViewModel.update(task) },
-            onTaskDeleted = { task -> taskViewModel.delete(task.id) },
-            showButtons = true // Show buttons in TaskFragment
-        )
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        // Initialize RecyclerViews
+        val suggestedRecyclerView = view.findViewById<RecyclerView>(R.id.suggestedRecyclerView)
+        val pendingRecyclerView = view.findViewById<RecyclerView>(R.id.pendingRecyclerView)
+        val completedRecyclerView = view.findViewById<RecyclerView>(R.id.completedRecyclerView)
 
-// Observe tasks from the ViewModel
-        taskViewModel.allTasks.observe(viewLifecycleOwner, Observer { tasks ->
-            tasks?.let { adapter.submitList(it) } // Use submitList for ListAdapter
+        val suggestedAdapter = TaskAdapter(
+            onTaskChecked = { task -> taskViewModel.update(task) },
+            onTaskPending = { task -> taskViewModel.update(task) },
+            onTaskDeleted = { task -> taskViewModel.delete(task.id) },
+            showButtons = true
+        )
+
+        val pendingAdapter = TaskAdapter(
+            onTaskChecked = { task -> taskViewModel.update(task) },
+            onTaskPending = { task -> taskViewModel.update(task) },
+            onTaskDeleted = { task -> taskViewModel.delete(task.id) },
+            showButtons = true
+        )
+
+        val completedAdapter = TaskAdapter(
+            onTaskChecked = { task -> taskViewModel.update(task) },
+            onTaskPending = { task -> taskViewModel.update(task) },
+            onTaskDeleted = { task -> taskViewModel.delete(task.id) },
+            showButtons = true
+        )
+
+        suggestedRecyclerView.adapter = suggestedAdapter
+        pendingRecyclerView.adapter = pendingAdapter
+        completedRecyclerView.adapter = completedAdapter
+
+        suggestedRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        pendingRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        completedRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        // Observe tasks from the ViewModel
+        taskViewModel.suggestedTasks.observe(viewLifecycleOwner, Observer { tasks ->
+            tasks?.let { suggestedAdapter.submitList(it) }
+        })
+
+        taskViewModel.pendingTasks.observe(viewLifecycleOwner, Observer { tasks ->
+            tasks?.let { pendingAdapter.submitList(it) }
+        })
+
+        taskViewModel.completedTasks.observe(viewLifecycleOwner, Observer { tasks ->
+            tasks?.let { completedAdapter.submitList(it) }
         })
 
         // Initialize Floating Action Button (FAB)
         val fabAddTask = view.findViewById<FloatingActionButton>(R.id.fabAddTask)
         fabAddTask.setOnClickListener {
-            // Launch the AddTaskActivity
             val intent = Intent(requireContext(), AddTaskActivity::class.java)
             addTaskLauncher.launch(intent)
         }

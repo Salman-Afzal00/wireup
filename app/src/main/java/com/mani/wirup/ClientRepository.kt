@@ -17,4 +17,13 @@ class ClientRepository(private val clientDao: ClientDao) {
     suspend fun delete(clientId: Int) {
         clientDao.deleteClient(clientId)
     }
+
+    suspend fun getClientById(clientId: Int): Client? {
+        return clientDao.getClientById(clientId)
+    }
+
+    // New function to get client by name
+    suspend fun getClientByName(name: String): Client? {
+        return clientDao.getClientByName(name)
+    }
 }

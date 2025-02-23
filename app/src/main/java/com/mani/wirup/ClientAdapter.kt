@@ -31,13 +31,11 @@ class ClientAdapter(
 
     inner class ClientViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val clientName: TextView = itemView.findViewById(R.id.clientTitle)
-        //private val clientContact: TextView = itemView.findViewById(R.id.textViewContact)
-        //private val clientAlternativeContact: TextView = itemView.findViewById(R.id.textViewAlternativeContact)
+        private val clientId: TextView = itemView.findViewById(R.id.clientId)
 
         fun bind(client: Client) {
             clientName.text = client.name
-            //clientContact.text = client.contact
-            //clientAlternativeContact.text = client.alternativeContact
+            clientId.text = "NHS ID: ${client.id}"
 
             // Handle client click
             itemView.setOnClickListener {

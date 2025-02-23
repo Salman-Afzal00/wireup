@@ -13,6 +13,12 @@
         android:iconTint="@color/black"
         />
     <item
+        android:id="@+id/meeting"
+        android:title="Meetings"
+        android:icon="@drawable/app"
+        android:iconTint="@color/black"
+        />
+    <item
         android:id="@+id/task"
         android:title="Tasks"
         android:icon="@drawable/icon_task"

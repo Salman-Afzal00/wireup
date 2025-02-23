@@ -9,7 +9,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -23,19 +25,54 @@ class Password : AppCompatActivity() {
     private lateinit var edtEmail:EditText
     private lateinit var edtPass: EditText
     private lateinit var edtConfirm:EditText
-    private lateinit var dbuser:DatabaseReference
+    private lateinit var nameTextInputLayout: TextInputLayout
+    private lateinit var emailTextInputLayout: TextInputLayout
+    private lateinit var passwordTextInputLayout: TextInputLayout
+    private lateinit var confirmTextInputLayout: TextInputLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_password)
+        enableEdgeToEdge()
         supportActionBar?.hide()
         mAuth= FirebaseAuth.getInstance()
         edtName=findViewById(R.id.edtName)
         edtEmail=findViewById(R.id.edtEmail)
         edtPass=findViewById(R.id.edtPass)
         edtConfirm=findViewById(R.id.edtConfirm)
+        btnnext2=findViewById(R.id.btnSignUp)
+        nameTextInputLayout = findViewById(R.id.nameInputLayout)
+        emailTextInputLayout = findViewById(R.id.emailInputLayout)
+        passwordTextInputLayout = findViewById(R.id.passwordInputLayout)
+        confirmTextInputLayout = findViewById(R.id.confirmInputLayout)
 
-
-        btnnext2=findViewById(R.id.btnnext2)
+        edtName.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                nameTextInputLayout.elevation = 16f
+            } else {
+                nameTextInputLayout.elevation = 0f // Remove elevation when not focused
+            }
+        }
+        edtEmail.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                emailTextInputLayout.elevation = 16f
+            } else {
+                emailTextInputLayout.elevation = 0f // Remove elevation when not focused
+            }
+        }
+        edtPass.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                passwordTextInputLayout.elevation = 16f
+            } else {
+                passwordTextInputLayout.elevation = 0f // Remove elevation when not focused
+            }
+        }
+        edtConfirm.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                confirmTextInputLayout.elevation = 16f
+            } else {
+                confirmTextInputLayout.elevation = 0f // Remove elevation when not focused
+            }
+        }
 
 
 
@@ -44,16 +81,17 @@ class Password : AppCompatActivity() {
                 var email=edtEmail.text.toString()
                 var password=edtPass.text.toString()
                 var confirm=edtConfirm.text.toString()
-                if (password==confirm){
-
-                    signup(name,email,password)
+                if(name.isEmpty()||email.isEmpty()||password.isEmpty()||confirm.isEmpty()){
+                    Toast.makeText(this, "Fill the fields to continue", Toast.LENGTH_SHORT).show()
                 }
-                else{
-                    Toast.makeText(this, "Password match missing", Toast.LENGTH_SHORT).show()
+                else {
+                    if (password == confirm) {
+
+                        signup(name, email, password)
+                    } else {
+                        Toast.makeText(this, "Password match missing", Toast.LENGTH_SHORT).show()
+                    }
                 }
-
-
-
 
             }
 

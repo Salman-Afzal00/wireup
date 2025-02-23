@@ -28,7 +28,6 @@ class CalenderFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_calender, container, false)
 
@@ -39,10 +38,21 @@ class CalenderFragment : Fragment() {
 
         // Initialize the adapter
         val adapter = TaskAdapter(
-            onTaskChecked = { task -> taskViewModel.update(task) },
-            onTaskDeleted = { task -> taskViewModel.delete(task.id) },
+            onTaskChecked = { task ->
+                // Update the task's completion status
+                val updatedTask = task.copy(isCompleted = !task.isCompleted, isPending = false)
+                taskViewModel.update(updatedTask)
+            },
+            onTaskPending = { task ->
+                // Move the task to the Pending section
+                val updatedTask = task.copy(isPending = true, isCompleted = false)
+                taskViewModel.update(updatedTask)
+            },
+            onTaskDeleted = { task ->
+                // Delete the task
+                taskViewModel.delete(task.id)
+            },
             showButtons = false // Hide buttons in CalendarFragment
-            // Disable checkbox in CalendarFragment
         )
         recyclerViewTasks.adapter = adapter
         recyclerViewTasks.layoutManager = LinearLayoutManager(requireContext())

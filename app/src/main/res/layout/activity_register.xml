@@ -4,143 +4,121 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/task_bg"
     tools:context=".Register">
 
-    <ViewFlipper
-        android:layout_width="match_parent"
-        android:layout_height="290dp"
-        android:layout_marginTop="120dp"
-        android:autoStart="true"
-        android:flipInterval="3000"
-        android:inAnimation="@android:anim/slide_out_right"
-        android:outAnimation="@android:anim/slide_out_right"
+    <TextView
+        android:id="@+id/tvApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Your social work PA"
+        android:textColor="@color/black"
+        android:fontFamily="@font/sf"
+        android:textSize="60dp"
+        android:textStyle="bold"
+        android:padding="20dp"
+        app:layout_constraintBottom_toTopOf="@id/imgVector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 
         <ImageView
+            android:id="@+id/imgVector"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/avatar1" />
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:src="@drawable/vector"
+            app:layout_constraintBottom_toTopOf="@+id/cardEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvApp"/>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/avatar4" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/avatar3" />
 
-    </ViewFlipper>
-
-    <Button
-        android:id="@+id/btnSignup"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardEmail"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="15dp"
-        android:background="@drawable/custom_button"
-        android:drawableLeft="@drawable/emaillo"
-        android:paddingLeft="15dp"
-        android:text="Sign up with email"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnGoogle"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="12dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/cardGoogle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <Button
-        android:id="@+id/btnGoogle"
+        <Button
+            android:id="@+id/btnSignup"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawableLeft="@drawable/mail_inbox_app"
+            android:paddingLeft="15dp"
+            android:text="Sign up with email"
+            android:textAllCaps="false"
+            android:background="@color/white"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardGoogle"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="7dp"
-        android:background="@drawable/custom_button"
-        android:drawableLeft="@drawable/googlo"
-        android:paddingLeft="15dp"
-        android:text="Continue with google"
-        android:textAllCaps="false"
-        android:textSize="17sp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="10dp"
+        android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/tvLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <TextView
-        android:id="@+id/tvLogin"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:text="Log in"
-        android:textColor="@color/gray"
-        android:textSize="23sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/btnGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/search"
+            android:paddingLeft="15dp"
+            android:text="Continue with Google"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="420dp"
-        android:layout_marginEnd="30dp"
-        android:text="By joinning wireup you accepting our "
-        android:textSize="15sp"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    </androidx.cardview.widget.CardView>
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="437dp"
-        android:layout_marginEnd="50dp"
-        android:text="privacy policy"
-        android:textColor="@color/light_blue"
-        android:textStyle="bold"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="437dp"
-        android:layout_marginEnd="50dp"
-        android:text=" and agree "
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/tvLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign in"
+            android:background="@drawable/custom_button"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textAllCaps="false"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="215dp"
-        android:layout_marginTop="437dp"
-        android:layout_marginEnd="50dp"
-        android:text="terms and conditions"
-        android:textStyle="bold"
-        android:textColor="@color/light_blue"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
 
 
 

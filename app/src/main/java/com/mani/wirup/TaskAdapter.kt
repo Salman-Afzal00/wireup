@@ -3,7 +3,6 @@ package com.mani.wirup
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -12,8 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 
 class TaskAdapter(
     private val onTaskChecked: (Task) -> Unit,
+    private val onTaskPending: (Task) -> Unit,
     private val onTaskDeleted: (Task) -> Unit,
-    private val showButtons: Boolean = true // Add this parameter
+    private val showButtons: Boolean = true
 ) : ListAdapter<Task, TaskAdapter.TaskViewHolder>(TaskDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -30,48 +30,101 @@ class TaskAdapter(
         private val taskTitle: TextView = itemView.findViewById(R.id.taskTitle)
         private val taskDate: TextView = itemView.findViewById(R.id.taskDate)
         private val taskTime: TextView = itemView.findViewById(R.id.taskTime)
-        private val taskButton: Button = itemView.findViewById(R.id.taskButton)
+        private val tvpriority: TextView = itemView.findViewById(R.id.tvpriority)
+        private val taskCompleteButton: ImageButton = itemView.findViewById(R.id.taskCompleteButton)
+        private val taskImageButton: ImageButton = itemView.findViewById(R.id.taskImageButton)
         private val deleteButton: ImageButton = itemView.findViewById(R.id.deleteButton)
 
         fun bind(task: Task) {
             // Bind task data to views
             taskTitle.text = task.title
-            taskDate.text = task.date
-            taskTime.text = task.time
+            taskDate.text = " " + task.date
+            taskTime.text = " " + task.time
+            tvpriority.text = task.priority
 
-            // Set the button visibility and enable/disable state based on showButtons
-            if (showButtons) {
-                taskButton.visibility = View.VISIBLE
-                deleteButton.visibility = View.VISIBLE
-                taskButton.isEnabled = true
-                deleteButton.isEnabled = true
-            } else {
-                taskButton.visibility = View.GONE
-                deleteButton.visibility = View.GONE
-                taskButton.isEnabled = false
-                deleteButton.isEnabled = false
+            // Handle visibility and enabled state of buttons and priority text based on task state
+            when {
+                // Suggested Section
+                !task.isPending && !task.isCompleted -> {
+                    // taskImageButton: Visible and enabled
+                    taskImageButton.visibility = View.VISIBLE
+                    taskImageButton.isEnabled = true
+
+                    // taskCompleteButton: Visible and enabled
+                    taskCompleteButton.visibility = View.VISIBLE
+                    taskCompleteButton.isEnabled = true
+
+                    // deleteButton: Visible and enabled
+                    deleteButton.visibility = View.VISIBLE
+                    deleteButton.isEnabled = true
+
+                    // priority.tvpriority: Invisible
+                    tvpriority.visibility = View.GONE
+                }
+
+                // Pending Section
+                task.isPending && !task.isCompleted -> {
+                    // taskImageButton: Disabled and invisible
+                    taskImageButton.visibility = View.GONE
+                    taskImageButton.isEnabled = false
+
+                    // taskCompleteButton: Visible and enabled
+                    taskCompleteButton.visibility = View.VISIBLE
+                    taskCompleteButton.isEnabled = true
+
+                    // deleteButton: Disabled and invisible
+                    deleteButton.visibility = View.GONE
+                    deleteButton.isEnabled = false
+
+                    // priority.tvpriority: Visible
+                    tvpriority.visibility = View.VISIBLE
+                }
+
+                // Completed Section
+                task.isCompleted -> {
+                    // taskImageButton: Disabled and invisible
+                    taskImageButton.visibility = View.GONE
+                    taskImageButton.isEnabled = false
+
+                    // taskCompleteButton: Visible but disabled
+                    taskCompleteButton.visibility = View.VISIBLE
+                    taskCompleteButton.isEnabled = false
+
+                    // deleteButton: Disabled and invisible
+                    deleteButton.visibility = View.GONE
+                    deleteButton.isEnabled = false
+
+                    // priority.tvpriority: Invisible
+                    tvpriority.visibility = View.GONE
+                }
             }
 
+            // Set the icon for the taskCompleteButton based on the task's completion status
             if (task.isCompleted) {
-                taskButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add, 0, 0, 0)
+                taskCompleteButton.setImageResource(R.drawable.ico_complete) // Icon for completed tasks
             } else {
-                taskButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.remove, 0, 0, 0)
+                taskCompleteButton.setImageResource(R.drawable.ic_complete) // Icon for incomplete tasks
             }
 
-            // Update the task's completion status when the Button is clicked
-            taskButton.setOnClickListener {
-                val updatedTask = task.copy(isCompleted = !task.isCompleted) // Toggle the state
+            // Mark the task as completed when the taskCompleteButton is clicked
+            taskCompleteButton.setOnClickListener {
+                val updatedTask = task.copy(isCompleted = !task.isCompleted, isPending = false)
                 onTaskChecked(updatedTask)
             }
 
-            // Handle the delete button click
+            // Move the task to the Pending section when the taskImageButton is clicked
+            taskImageButton.setOnClickListener {
+                val updatedTask = task.copy(isPending = true, isCompleted = false)
+                onTaskPending(updatedTask)
+            }
+
+            // Delete the task when the deleteButton is clicked
             deleteButton.setOnClickListener {
                 onTaskDeleted(task)
             }
         }
     }
 
-    // DiffUtil callback to compare tasks
     class TaskDiffCallback : DiffUtil.ItemCallback<Task>() {
         override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
             return oldItem.id == newItem.id

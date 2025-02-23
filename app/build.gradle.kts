@@ -33,6 +33,7 @@ android {
         }
     }
     compileOptions {
+
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -80,10 +81,19 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
     // Material Calendar View
-    implementation ("com.applandeo:material-calendar-view:1.9.2")
+
+        implementation ("com.kizitonwose.calendar:view:2.3.0")
+
+
+    implementation ("com.google.android.material:material:1.11.0")
+
 
     // Neumorphism Library
     implementation("com.github.fornewid:neumorphism:0.3.2")
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

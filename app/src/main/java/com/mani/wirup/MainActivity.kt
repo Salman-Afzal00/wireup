@@ -35,9 +35,14 @@ class MainActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
         dbuser = FirebaseDatabase.getInstance().getReference()
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
-
+        replaceFragment(MeetingFragment())
+        bottomNavigationView.selectedItemId = R.id.meeting
         bottomNavigationView.setOnItemSelectedListener {menuItem ->
             when(menuItem.itemId){
+                R.id.meeting ->{
+                    replaceFragment(MeetingFragment())
+                    true
+                }
                 R.id.calender -> {
                     replaceFragment(CalenderFragment())
                     true
@@ -59,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-        replaceFragment(CalenderFragment())
+
 
     }
     private fun replaceFragment(fragment: Fragment){

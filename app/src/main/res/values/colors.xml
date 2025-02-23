@@ -6,8 +6,8 @@
     <color name="gray">#5d767b</color>
     <color name="dark">#2d2f2f</color>
     <color name="gray2">#444444</color>
-    <color name="white2">#f3f6f4</color>
-    <color name="light">#eeeeee</color>
+    <color name="red">#e06666</color>
+    <color name="light_gray">#dbd9d9</color>
     <color name="background">#f5f9fd</color>
     <color name="back">#e8f2fc</color>
     <color name="gren">#6aa84f</color>
@@ -19,4 +19,11 @@
     <color name="backui">#f3f6f4</color>
     <color name="light_blue">#b7d3ed</color>
     <color name="task_bg">#f5f8ff</color>
+    <color name="corner">#e2d5ff</color>
+    <color name="voice_layout_bg">#f3f6f4</color>
+    <color name="color1">#fff8f2</color>
+    <color name="color2">#e6f1e2</color>
+    <color name="color3">#edf8f7</color>
+    <color name="color4">#f8edf5</color>
+
 </resources>

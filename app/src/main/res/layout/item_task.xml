@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,59 +14,99 @@
         android:id="@+id/taskTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@id/taskImageButton"
+        app:layout_constraintStart_toEndOf="@id/taskCompleteButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/taskButton"
-        android:layout_marginEnd="8dp" />
+        tools:text="Task Title" />
 
     <!-- Task Date -->
     <TextView
         android:id="@+id/taskDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@id/taskButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/taskTitle" />
+        android:drawableStart="@drawable/date"
+        android:drawablePadding="4dp"
+        app:layout_constraintEnd_toStartOf="@id/taskImageButton"
+        app:layout_constraintStart_toEndOf="@id/taskCompleteButton"
+        app:layout_constraintTop_toBottomOf="@id/taskTitle"
+        tools:text="Feb 21, 2025" />
 
     <!-- Task Time -->
     <TextView
         android:id="@+id/taskTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/taskDate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/taskButton"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginEnd="8dp"
+        android:drawableStart="@drawable/time"
+        android:drawablePadding="4dp"
+        app:layout_constraintEnd_toStartOf="@id/taskImageButton"
+        app:layout_constraintStart_toEndOf="@id/taskCompleteButton"
+        app:layout_constraintTop_toBottomOf="@id/taskDate"
+        tools:text="12:00 PM" />
 
-    <!-- Task CheckBox -->
-    <Button
-        android:id="@+id/taskButton"
+    <ImageButton
+        android:id="@+id/taskCompleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:drawableStart="@drawable/ic_add"
+        android:background="@android:color/transparent"
+        android:contentDescription="Mark task as completed"
+        android:padding="3dp"
+        android:src="@drawable/ic_complete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!-- Image Button (Moves task to Pending) -->
+    <ImageButton
+        android:id="@+id/taskImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Move to Pending"
         android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deleteButton" />
+        android:src="@drawable/check_ico"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/deleteButton"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Delete Button -->
     <ImageButton
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/remove"
+        android:layout_marginEnd="5dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="Delete Task"
+        android:src="@drawable/delete_img"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvpriority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:background="@drawable/priority_bg"
+        android:textSize="14sp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

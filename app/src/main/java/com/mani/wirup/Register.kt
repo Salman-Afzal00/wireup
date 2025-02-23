@@ -26,7 +26,7 @@ class Register : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var btnSignup:Button
     private lateinit var btnGoogle:Button
-    private lateinit var tvLogin:TextView
+    private lateinit var tvLogin:Button
     private lateinit var dbuser: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

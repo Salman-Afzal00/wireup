@@ -6,15 +6,12 @@ import androidx.room.*
 @Dao
 interface NoteDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE) // Update if the note already exists
     suspend fun insert(note: Note)
 
-    @Update
-    suspend fun update(note: Note)
+    @Query("SELECT * FROM notes WHERE id = 1") // Always fetch the note with ID 1
+    fun getNote(): LiveData<Note?>
 
-    @Query("SELECT * FROM notes ORDER BY id DESC")
-    fun getAllNotes(): LiveData<List<Note>>
-
-    @Query("DELETE FROM notes WHERE id = :noteId")
-    suspend fun delete(noteId: Long)
+    @Query("DELETE FROM notes")
+    suspend fun deleteAll()
 }

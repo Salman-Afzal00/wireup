@@ -26,12 +26,12 @@ class NoteAdapter(
 
     inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val noteTitle: TextView = itemView.findViewById(R.id.noteTitle)
-        private val noteContent: TextView = itemView.findViewById(R.id.noteContent)
+        //private val noteContent: TextView = itemView.findViewById(R.id.noteContent)
         private val deleteButton: ImageButton = itemView.findViewById(R.id.deleteButton) // Add this
 
         fun bind(note: Note) {
             noteTitle.text = note.title
-            noteContent.text = note.content
+            //noteContent.text = note.content
 
             // Handle note click (for editing)
             itemView.setOnClickListener {

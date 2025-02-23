@@ -6,26 +6,35 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 class TaskViewModel(
-    private val taskrepository: TaskRepository
-    ) : ViewModel() {
+    private val taskRepository: TaskRepository
+) : ViewModel() {
 
-    val allTasks: LiveData<List<Task>> = taskrepository.allTasks
+    val suggestedTasks: LiveData<List<Task>> = taskRepository.getSuggestedTasks()
+    val pendingTasks: LiveData<List<Task>> = taskRepository.getPendingTasks()
+    val completedTasks: LiveData<List<Task>> = taskRepository.getCompletedTasks()
 
-    fun getTasksByDate(date: String): LiveData<List<Task>> {
-        return taskrepository.getTasksByDate(date)
+    fun getTasksForMeeting(): LiveData<List<Task>> {
+        return taskRepository.getTasksForMeeting()
     }
 
     fun insert(task: Task) = viewModelScope.launch {
-        taskrepository.insert(task)
+        taskRepository.insert(task)
     }
 
     fun update(task: Task) = viewModelScope.launch {
-        taskrepository.update(task)
+        taskRepository.update(task)
     }
 
     fun delete(taskId: Long) = viewModelScope.launch {
-        taskrepository.delete(taskId)
+        taskRepository.delete(taskId)
     }
 
+    fun getTasksByDate(date: String): LiveData<List<Task>> {
+        return taskRepository.getTasksByDate(date)
+    }
 
+    // New function to get tasks by client ID
+    fun getTasksByClientId(clientId: Int): LiveData<List<Task>> {
+        return taskRepository.getTasksByClientId(clientId)
+    }
 }
