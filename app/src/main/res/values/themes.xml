@@ -23,12 +23,16 @@
         <item name="android:windowLightStatusBar">true</item>
 
     </style>
-    <style name="Theme.signupok" parent="Theme.AppCompat"/>
+    <style name="Theme.signupok" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
     <style name="Theme.SignUp" parent="Theme.Material3.Dark.NoActionBar"/>
 
     <style name="Theme.Wirup" parent="Base.Theme.Wirup" />
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator" >
-        <item name="android:color">@color/task_bg</item>
+        <item name="android:color">@color/light_blue</item>
         <item name="android:height">28dp</item>
         <item name="android:width">58dp</item>
     </style>

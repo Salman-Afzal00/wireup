@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase
 @Suppress("DEPRECATION")
 class Password : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var dbuser: DatabaseReference
     private lateinit var btnnext2:Button
     private lateinit var edtName:EditText
     private lateinit var edtEmail:EditText
@@ -107,9 +108,9 @@ class Password : AppCompatActivity() {
                         ?.addOnCompleteListener(OnCompleteListener<Void>(){
                                 task ->
                             if(task.isSuccessful){
+                                addUserToDatabase(name,email,mAuth.currentUser?.uid!!)
+                                        startActivity(Intent(this, signupok::class.java))
 
-
-                                startActivity(Intent(this,signupok::class.java))
                             }
                             else {
                                 Toast.makeText(this,task.getException()!!.message, Toast.LENGTH_SHORT).show()
@@ -121,6 +122,9 @@ class Password : AppCompatActivity() {
                 }
             }
     }
-
+    private fun addUserToDatabase(name: String, email: String, uid:String){
+        dbuser=FirebaseDatabase.getInstance().getReference()
+        dbuser.child("user").child(uid).setValue(User(name, email, uid))
+    }
 
 }

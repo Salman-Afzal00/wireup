@@ -8,6 +8,8 @@
     android:background="@color/white"
     tools:context=".NotesFragment">
 
+
+
     <!-- Note Edit View -->
     <include
         android:id="@+id/layoutNote"

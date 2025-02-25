@@ -29,8 +29,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:menu="@menu/nav_icon"
-        app:itemIconTint="@color/black"
-        app:itemTextColor="@color/black"
+        app:itemIconTint="@color/color_nav"
+        app:itemTextColor="@color/color_nav"
         app:itemIconSize="18dp"
         app:labelVisibilityMode="labeled"
         app:itemActiveIndicatorStyle="@style/App.Custom.Indicator" />

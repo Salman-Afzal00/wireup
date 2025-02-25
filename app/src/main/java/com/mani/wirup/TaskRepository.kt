@@ -28,6 +28,13 @@ class TaskRepository(private val taskDao: TaskDao) {
         return taskDao.getTasksByDate(date)
     }
 
+    suspend fun deleteAllCompletedTasks() {
+        taskDao.deleteAllCompletedTasks()
+    }
+    suspend fun getTaskById(taskId: Long): Task? {
+        return taskDao.getTaskById(taskId)
+    }
+
     // New function to get tasks by client ID
     fun getTasksByClientId(clientId: Int): LiveData<List<Task>> {
         return taskDao.getTasksByClientId(clientId)

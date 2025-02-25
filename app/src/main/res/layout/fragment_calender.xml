@@ -13,42 +13,44 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="10dp"
-        android:text="Schedule"
+        android:text="Today's  meetings"
         android:textColor="@color/black"
-        android:textSize="25sp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/calendarView"
+        android:fontFamily="@font/sf"
+        app:layout_constraintBottom_toTopOf="@+id/weekly"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.408"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="0dp"
+    <com.kizitonwose.calendar.view.WeekCalendarView
+        android:id="@+id/weekly"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:dateTextAppearance="@style/CalendarDateTextAppearance"
-        android:maxHeight="200dp"
-        android:minHeight="200dp"
-        android:weekDayTextAppearance="@style/CalendarWeekDayTextAppearance"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        app:cv_dayViewResource="@layout/day_view"
+        app:cv_daySize="rectangle"
+        app:cv_orientation="horizontal"
+        app:cv_outDateStyle="endOfRow"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSchedule" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSchedule" />
+
 
     <TextView
         android:id="@+id/tvTasks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:layout_marginStart="20dp"
         android:text="List of Tasks"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+        app:layout_constraintTop_toBottomOf="@+id/weekly" />
 
 
     <!-- RecyclerView -->
@@ -56,6 +58,7 @@
         android:id="@+id/recyclerViewTasks"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,5 +75,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="16dp">
+
+        <Button
+            android:id="@+id/addTaskButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_addtask_calender"
+            android:fontFamily="@font/sf"
+            android:text="Add task to calendar"
+            android:textColor="@color/blue"
+            android:textSize="15sp"
+            android:padding="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

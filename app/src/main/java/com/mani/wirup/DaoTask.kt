@@ -32,4 +32,11 @@ interface TaskDao {
 
     @Query("SELECT * FROM tasks WHERE isPending = 1 AND isCompleted = 0 ORDER BY date ASC, time ASC")
     fun getTasksForMeeting(): LiveData<List<Task>>
+
+    @Query("DELETE FROM tasks WHERE isCompleted = 1")
+    suspend fun deleteAllCompletedTasks()
+
+    @Query("SELECT * FROM tasks WHERE id = :taskId")
+    suspend fun getTaskById(taskId: Long): Task?
+
 }

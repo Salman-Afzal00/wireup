@@ -16,6 +16,7 @@ data class Task(
     val priority: String,
     val isCompleted: Boolean = false,
     val isPending: Boolean = false,
+    val content: String,
     val clientId: Int? = null, // Added clientId
     val duration: Long = 0 // Added duration in minutes
 ) : Parcelable

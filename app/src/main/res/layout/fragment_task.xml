@@ -7,12 +7,14 @@
     android:padding="16dp"
     tools:context=".TaskFragment">
 
+
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/fabAddTask"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -21,6 +23,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="16dp">
+
+
 
             <!-- Title -->
             <TextView
@@ -40,17 +44,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Suggested Tasks"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/sf"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:drawableStart="@drawable/ic_arrow_up"
+                android:drawablePadding="12dp" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/suggestedRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:minHeight="150dp" />
+                android:minHeight="150dp"
+                android:visibility="visible" />
 
             <!-- Pending Tasks -->
             <TextView
@@ -58,35 +70,78 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pending Tasks"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/sf"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:drawableStart="@drawable/ic_arrow_up"
+                android:drawablePadding="12dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/pendingRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:minHeight="150dp" />
+                android:minHeight="150dp"
+                android:visibility="visible" />
 
             <!-- Completed Tasks -->
-            <TextView
-                android:id="@+id/tvCompletedTasks"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Completed Tasks"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginTop="12dp" />
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvCompletedTasks"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Completed Tasks"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/sf"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:drawableStart="@drawable/ic_arrow_up"
+                    android:drawablePadding="12dp"/>
+
+                <ImageButton
+                    android:id="@+id/btnDeleteAllCompleted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/more"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp" />
+
+                <TextView
+                    android:id="@+id/tvDeleteAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="delete all"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/sf"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    android:visibility="gone"
+                    />
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/completedRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:minHeight="150dp" />
+                android:minHeight="150dp"
+                android:visibility="visible" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.mani.wirup"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -82,7 +82,7 @@ dependencies {
 
     // Material Calendar View
 
-        implementation ("com.kizitonwose.calendar:view:2.3.0")
+    implementation("com.kizitonwose.calendar:view:2.4.0")
 
 
     implementation ("com.google.android.material:material:1.11.0")

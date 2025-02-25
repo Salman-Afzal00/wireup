@@ -1,192 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/white"
     android:padding="16dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvNotes"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Notes"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/sf"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="10dp" />
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutButtons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="32dp"
-
-            android:background="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageButton
-                android:id="@+id/btnSave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:background="@android:color/transparent"
-                android:padding="7dp"
-                android:src="@drawable/save_note"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/btnCopy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:background="@android:color/transparent"
-                android:padding="7dp"
-                android:src="@drawable/copy"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btnSave"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/btnSend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:background="@android:color/transparent"
-                android:padding="7dp"
-                android:src="@drawable/send"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btnCopy"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutNote"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/add_note_bg"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutButtons">
-
-
-            <!-- Title EditText -->
-            <EditText
-                android:id="@+id/editTextTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@color/task_bg"
-                android:fontFamily="@font/sf"
-                android:hint="Title"
-                android:inputType="text"
-                android:maxLines="10"
-                android:padding="10dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/light_gray"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
-            <EditText
-                android:id="@+id/editTextContent"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@color/task_bg"
-                android:hint="Content"
-                android:inputType="textMultiLine"
-                android:padding="10dp"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:textColorHint="@color/light_gray"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editTextTitle"
-                tools:layout_editor_absoluteX="10dp" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollable"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/add_note_bg"
+        app:layout_constraintTop_toBottomOf="@id/tvNotes"
+        app:layout_constraintBottom_toTopOf="@id/layoutVoice">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/voice_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutNote">
+            >
 
-            <TextView
-                android:id="@+id/tvAdjust"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/sf"
-                android:gravity="center"
-                android:text="Need Any Adjustment?"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+            <!-- Buttons Layout -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutButtons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/layout_voice_icon"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvAdjust">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageButton
-                    android:id="@+id/buttonVoiceInput"
+                    android:id="@+id/btnSave"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:padding="10dp"
-                    android:src="@drawable/microphone"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:padding="7dp"
+                    android:src="@drawable/save_note"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <ImageButton
+                    android:id="@+id/btnCopy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="write or edit text by voice"
-                    android:textColor="@color/light_gray"
-                    android:textSize="17sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/buttonVoiceInput"
+                    android:background="@android:color/transparent"
+                    android:padding="7dp"
+                    android:src="@drawable/copy"
+                    app:layout_constraintStart_toEndOf="@id/btnSave"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/btnSend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:padding="7dp"
+                    android:src="@drawable/send"
+                    app:layout_constraintStart_toEndOf="@id/btnCopy"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <!-- Note Input -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/add_note_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutButtons">
+
+                <EditText
+                    android:id="@+id/editTextContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:background="@color/task_bg"
+                    android:hint="Note Content"
+                    android:inputType="textMultiLine"
+                    android:padding="10dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Voice Input Section (Fixed) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutVoice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/voice_layout"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tvAdjust"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/sf"
+            android:text="Need Any Adjustment?"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+            <Button
+                android:id="@+id/recordButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/microphone"
+                android:text="Start Recording"
+                android:textColor="@color/light_gray"
+                android:background="@drawable/api_voice"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:paddingStart="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAdjust" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

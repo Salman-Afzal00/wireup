@@ -86,6 +86,7 @@ class Register : AppCompatActivity() {
                 mAuth.currentUser?.displayName
                 val name=mAuth.currentUser?.displayName.toString()
                 mAuth.currentUser?.uid.toString()
+                addUserToDatabase(emai,name,mAuth.currentUser?.uid!!)
                 startActivity(Intent(this,MainActivity::class.java))
                 finish()
             }
@@ -94,6 +95,10 @@ class Register : AppCompatActivity() {
 
             }
         }
+    }
+    private fun addUserToDatabase(email: String, name: String, uid: String){
+        dbuser= FirebaseDatabase.getInstance().getReference()
+        dbuser.child("user").child(uid).setValue(User(name,email,uid))
     }
 
 

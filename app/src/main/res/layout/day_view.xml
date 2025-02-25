@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center"> <!-- Add padding to ensure background covers text -->
+
+    <!-- Day Name (e.g., Sun, Mon) -->
+    <TextView
+        android:id="@+id/dayNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/darker_gray"
+        android:padding="4dp"/> <!-- Add padding to text -->
+
+    <!-- Day Number (e.g., 30) -->
+    <TextView
+        android:id="@+id/dayText"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:textColor="@color/black"/>
+</LinearLayout>

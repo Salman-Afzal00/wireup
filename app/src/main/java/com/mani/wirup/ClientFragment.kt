@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 @Suppress("DEPRECATION")
-class ClientFragment : Fragment() {
+class  ClientFragment : Fragment() {
 
     private val clientViewModel: ClientViewModel by viewModels {
         TaskViewModelFactory(
