@@ -26,23 +26,23 @@
 
     <!-- Task Date -->
     <TextView
-        android:id="@+id/taskDate"
+        android:id="@+id/taskAddToCalendar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
-        android:textColor="@color/black"
-        android:drawableStart="@drawable/date"
+        android:text=""
+        android:textColor="@color/blue"
         android:drawablePadding="4dp"
         app:layout_constraintEnd_toStartOf="@id/taskImageButton"
         app:layout_constraintStart_toEndOf="@id/taskCompleteButton"
-        app:layout_constraintTop_toBottomOf="@id/taskTitle"
-        tools:text="Feb 21, 2025" />
+        app:layout_constraintTop_toBottomOf="@id/taskDay"
+         />
 
     <!-- Task Time -->
     <TextView
-        android:id="@+id/taskTime"
+        android:id="@+id/taskDay"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -53,8 +53,8 @@
         android:drawablePadding="4dp"
         app:layout_constraintEnd_toStartOf="@id/taskImageButton"
         app:layout_constraintStart_toEndOf="@id/taskCompleteButton"
-        app:layout_constraintTop_toBottomOf="@id/taskDate"
-        tools:text="12:00 PM" />
+        app:layout_constraintTop_toBottomOf="@id/taskTitle"
+        tools:text="" />
 
     <ImageButton
         android:id="@+id/taskCompleteButton"
@@ -104,6 +104,22 @@
         android:background="@drawable/priority_bg"
         android:textSize="14sp"
         android:textColor="@color/red"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCompleted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="completed"
+        android:background="@drawable/completed_bg"
+        android:textSize="14sp"
+        android:textColor="@color/green"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:paddingTop="4dp"

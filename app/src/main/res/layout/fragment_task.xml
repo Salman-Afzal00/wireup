@@ -7,8 +7,6 @@
     android:padding="16dp"
     tools:context=".TaskFragment">
 
-
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -24,8 +22,6 @@
             android:orientation="vertical"
             android:paddingBottom="16dp">
 
-
-
             <!-- Title -->
             <TextView
                 android:id="@+id/tvTasks"
@@ -38,23 +34,54 @@
                 android:layout_gravity="center_horizontal"
                 android:paddingTop="16dp" />
 
-            <!-- Suggested Tasks -->
-            <TextView
-                android:id="@+id/tvSuggestedTasks"
-                android:layout_width="wrap_content"
+            <!-- Suggested Tasks and Sort Button -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Suggested Tasks"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
+                android:orientation="horizontal"
                 android:layout_marginTop="12dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:fontFamily="@font/sf"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:drawableStart="@drawable/ic_arrow_up"
-                android:drawablePadding="12dp" />
+                android:gravity="center_vertical">
 
+                <TextView
+                    android:id="@+id/tvSuggestedTasks"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Suggested Tasks"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/sf"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:drawableStart="@drawable/ic_arrow_down"
+                    android:drawablePadding="12dp" />
+
+
+
+                <ImageButton
+                    android:id="@+id/btnFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                   android:background="@android:color/transparent"
+                    android:src="@drawable/adjustment"
+                    android:textColor="@color/white"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="8dp"
+                    android:layout_marginStart="8dp" />
+
+                <ImageButton
+                    android:id="@+id/btnSortPending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/sort"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/white"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="8dp"
+                    android:layout_marginStart="0dp" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/suggestedRecyclerView"
@@ -62,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:minHeight="150dp"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <!-- Pending Tasks -->
             <TextView
@@ -79,7 +106,7 @@
                 android:focusable="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:drawableStart="@drawable/ic_arrow_up"
-                android:drawablePadding="12dp"/>
+                android:drawablePadding="12dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/pendingRecyclerView"
@@ -111,7 +138,7 @@
                     android:focusable="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:drawableStart="@drawable/ic_arrow_up"
-                    android:drawablePadding="12dp"/>
+                    android:drawablePadding="12dp" />
 
                 <ImageButton
                     android:id="@+id/btnDeleteAllCompleted"
@@ -130,9 +157,7 @@
                     android:fontFamily="@font/sf"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="8dp"
-                    android:visibility="gone"
-                    />
-
+                    android:visibility="gone" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

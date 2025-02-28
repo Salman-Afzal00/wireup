@@ -23,19 +23,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="10dp" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSuggestedTasks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvNotes"
+        android:layout_marginTop="16dp"
+        android:visibility="visible" />
+
     <!-- Scrollable Content -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollable"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="200dp"
         android:background="@drawable/add_note_bg"
-        app:layout_constraintTop_toBottomOf="@id/tvNotes"
-        app:layout_constraintBottom_toTopOf="@id/layoutVoice">
+        app:layout_constraintBottom_toTopOf="@id/layoutVoice"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewSuggestedTasks"
+        tools:layout_editor_absoluteX="16dp">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <!-- Buttons Layout -->
             <androidx.constraintlayout.widget.ConstraintLayout

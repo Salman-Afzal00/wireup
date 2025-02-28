@@ -50,8 +50,8 @@ class CalenderFragment : Fragment() {
 
         // Set click listener to open AddTaskActivity
         addTaskButton.setOnClickListener {
-            val intent = Intent(requireContext(), AddTaskActivity::class.java)
-            startActivity(intent)
+            val dialog = AddTaskDialog()
+            dialog.show(parentFragmentManager, "AddTaskDialog")
         }
 
         // Initialize RecyclerView

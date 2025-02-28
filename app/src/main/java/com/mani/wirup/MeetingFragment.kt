@@ -67,8 +67,8 @@ class MeetingFragment : Fragment() {
         recyclerView.adapter = meetingTaskAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        // Observe tasks for the meeting fragment
-        taskViewModel.getTasksForMeeting().observe(viewLifecycleOwner) { tasks ->
+        // Observe tasks for the current date
+        taskViewModel.getTasksForCurrentDate().observe(viewLifecycleOwner) { tasks ->
             meetingTaskAdapter.submitList(tasks)
             if (tasks.isEmpty()) {
                 view.findViewById<View>(R.id.emptyView).visibility = View.VISIBLE
@@ -91,7 +91,7 @@ class MeetingFragment : Fragment() {
                     if (!userName.isNullOrEmpty()) {
                         textViewUserName.text = "$userName"
                         tvUserImage.text = userName.substring(0, 2)
-                    // Display name
+                        // Display name
                     } else {
                         textViewUserName.text = "Welcome"
                     }

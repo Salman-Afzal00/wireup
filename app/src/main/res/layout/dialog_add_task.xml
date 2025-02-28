@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/add_background"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/sf"
+            android:padding="10dp"
+            android:text="Task :"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!-- Title EditText -->
+        <EditText
+            android:id="@+id/editTextTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/task_bg"
+            android:hint="enter your task here"
+            android:inputType="textMultiLine"
+            android:maxLines="10"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:textColorHint="@color/light_gray"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvTask"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/viewTask"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="3dp"
+            android:background="@color/corner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextTitle" />
+
+        <TextView
+            android:id="@+id/tvPriority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf"
+            android:padding="10dp"
+            android:text="Priority :"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewTask" />
+
+        <Spinner
+            android:id="@+id/spinnerPriority"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/viewTask"
+            app:layout_constraintStart_toEndOf="@id/tvPriority"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <View
+            android:id="@+id/viewPriority"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="3dp"
+            android:background="@color/corner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinnerPriority" />
+
+        <TextView
+            android:id="@+id/tvClient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf"
+            android:padding="10dp"
+            android:text="Client :"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewPriority" />
+
+        <Spinner
+            android:id="@+id/spinnerClient"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Client"
+            android:layout_marginTop="25dp"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerPriority"
+            app:layout_constraintStart_toEndOf="@id/tvClient"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <View
+            android:id="@+id/viewClient"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="3dp"
+            android:background="@color/corner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinnerClient" />
+
+        <TextView
+            android:id="@+id/tvDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf"
+            android:padding="10dp"
+            android:text="Duration :"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewClient" />
+
+
+        <EditText
+            android:id="@+id/editTextDuration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Duration (in minutes)"
+            android:inputType="number"
+            android:textSize="15sp"
+            android:layout_marginTop="8dp"
+            android:background="@color/task_bg"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/light_gray"
+            app:layout_constraintTop_toBottomOf="@+id/viewClient"
+            app:layout_constraintStart_toEndOf="@id/tvDuration"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <View
+            android:id="@+id/viewDuration"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="3dp"
+            android:background="@color/corner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextDuration" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf"
+            android:padding="10dp"
+            android:text="Deadline :"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewDuration" />
+
+
+        <EditText
+            android:id="@+id/editTextDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/task_bg"
+            android:hint="Date (YYYY-MM-DD)"
+            android:inputType="date"
+            android:padding="10dp"
+            android:focusable="false"
+            android:clickable="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/light_gray"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@id/tvDate"
+            app:layout_constraintTop_toBottomOf="@id/viewDuration" />
+
+        <View
+            android:id="@+id/viewDate"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="3dp"
+            android:background="@color/corner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextDate" />
+
+
+        <TextView
+            android:id="@+id/tvAddtoCalendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf"
+            android:padding="10dp"
+            android:text="Add To Calendar "
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewDate" />
+
+        <CheckBox
+            android:id="@+id/addtoCalendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf"
+            app:layout_constraintTop_toBottomOf="@id/viewDate"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="10dp" />
+
+
+        <View
+            android:id="@+id/viewTime"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/corner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addtoCalendar" />
+
+        <TextView
+            android:id="@+id/tvDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sf"
+            android:padding="10dp"
+            android:text="Additional:"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewTime" />
+
+        <EditText
+            android:id="@+id/editTextDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/task_bg"
+            android:hint="Additional detail here"
+            android:textColor="@color/black"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:textColorHint="@color/light_gray"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvDetail"
+            app:layout_constraintTop_toBottomOf="@id/viewTime" />
+
+        <View
+            android:id="@+id/viewDetail"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/corner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextDetail" />
+
+
+
+        <!-- Add Task Button -->
+        <Button
+            android:id="@+id/buttonAddTask"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/add_bg"
+            android:text="Add Task"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewDetail"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

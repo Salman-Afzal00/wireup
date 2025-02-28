@@ -50,7 +50,7 @@ class MeetingTaskAdapter(
 
     inner class MeetingTaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val taskTitle: TextView = itemView.findViewById(R.id.taskTitle)
-        private val taskTime: TextView = itemView.findViewById(R.id.taskTime)
+//        private val taskTime: TextView = itemView.findViewById(R.id.taskTime)
         private val tvClientName: TextView = itemView.findViewById(R.id.tvClientName)
         private val tvPriority: TextView = itemView.findViewById(R.id.tvPriority)
         private val btnStartNow: Button = itemView.findViewById(R.id.btnStartNow)
@@ -58,7 +58,6 @@ class MeetingTaskAdapter(
         fun bind(task: Task) {
             // Bind task data to views
             taskTitle.text = task.title
-            taskTime.text = " " + task.time
             tvPriority.text = task.priority
 
             // Fetch and display client name

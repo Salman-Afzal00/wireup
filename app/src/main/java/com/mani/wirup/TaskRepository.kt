@@ -11,7 +11,9 @@ class TaskRepository(private val taskDao: TaskDao) {
     suspend fun insert(task: Task) {
         taskDao.insert(task)
     }
-
+    fun insertSuggestedTasks(tasks: List<Task>) {
+        taskDao.insertAll(tasks)
+    }
     suspend fun update(task: Task) {
         taskDao.update(task)
     }

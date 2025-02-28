@@ -8,6 +8,6 @@ import retrofit2.http.Part
 
 interface ApiService {
     @Multipart
-    @POST("summary") // Use the API endpoint
+    @POST("summary") // Adjust the endpoint as needed
     fun uploadAudio(@Part file: MultipartBody.Part): Call<UploadResponse>
 }

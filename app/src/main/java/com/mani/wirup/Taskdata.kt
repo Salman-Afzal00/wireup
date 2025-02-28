@@ -12,11 +12,11 @@ data class Task(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val title: String,
     val date: String,
-    val time: String,
     val priority: String,
     val isCompleted: Boolean = false,
     val isPending: Boolean = false,
     val content: String,
     val clientId: Int? = null, // Added clientId
-    val duration: Long = 0 // Added duration in minutes
+    val duration: Long = 0 ,
+    val addToCalendar: Boolean = false
 ) : Parcelable

@@ -5,9 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.mani.wirup.DateUtils.addTaskToCalendar
 
 class TaskAdapter(
     private val onTaskChecked: (Task) -> Unit,
@@ -30,18 +32,41 @@ class TaskAdapter(
 
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val taskTitle: TextView = itemView.findViewById(R.id.taskTitle)
-        private val taskDate: TextView = itemView.findViewById(R.id.taskDate)
-        private val taskTime: TextView = itemView.findViewById(R.id.taskTime)
+        private val taskAddToCalendar: TextView = itemView.findViewById(R.id.taskAddToCalendar)
+        private val tvDay: TextView = itemView.findViewById(R.id.taskDay)
         private val tvpriority: TextView = itemView.findViewById(R.id.tvpriority)
         private val taskCompleteButton: ImageButton = itemView.findViewById(R.id.taskCompleteButton)
         private val taskImageButton: ImageButton = itemView.findViewById(R.id.taskImageButton)
         private val deleteButton: ImageButton = itemView.findViewById(R.id.deleteButton)
+        private val tvCompleted: TextView = itemView.findViewById(R.id.tvCompleted)
 
         fun bind(task: Task) {
             taskTitle.text = task.title
-            taskDate.text = " " + task.date
-            taskTime.text = " " + task.time
             tvpriority.text = task.priority
+
+
+            when {
+                DateUtils.isToday(task.date) -> tvDay.text = "Today"
+                DateUtils.isThisWeek(task.date) -> tvDay.text = "This week"
+                DateUtils.isPastDate(task.date) -> tvDay.text = "Past"
+                else -> tvDay.text = "Upcoming" // No label for other dates
+            }
+            if (!task.addToCalendar) {
+                taskAddToCalendar.text = "Add to calendar"
+                taskAddToCalendar.visibility = View.VISIBLE
+            } else {
+                taskAddToCalendar.visibility = View.GONE
+            }
+
+            taskAddToCalendar.setOnClickListener {
+                val success = DateUtils.addTaskToCalendar(itemView.context, task.title, task.date, task.duration)
+                if (success) {
+                    val updatedTask = task.copy(addToCalendar = true)
+                    onTaskPending(updatedTask) // Update the task in the database
+                } else {
+                    Toast.makeText(itemView.context, "Failed to add task to calendar", Toast.LENGTH_SHORT).show()
+                }
+            }
 
             // Control visibility and enabled state of taskCompleteButton
             if (showCompleteButton) {
@@ -59,6 +84,7 @@ class TaskAdapter(
                     deleteButton.visibility = View.VISIBLE
                     deleteButton.isEnabled = true
                     tvpriority.visibility = View.GONE
+                    tvCompleted.visibility=View.GONE
                 }
                 task.isPending && !task.isCompleted -> {
                     taskImageButton.visibility = View.GONE
@@ -66,6 +92,7 @@ class TaskAdapter(
                     deleteButton.visibility = View.GONE
                     deleteButton.isEnabled = false
                     tvpriority.visibility = View.VISIBLE
+                    tvCompleted.visibility=View.GONE
                 }
                 task.isCompleted -> {
                     taskImageButton.visibility = View.GONE
@@ -73,6 +100,7 @@ class TaskAdapter(
                     deleteButton.visibility = View.GONE
                     deleteButton.isEnabled = false
                     tvpriority.visibility = View.GONE
+                    tvCompleted.visibility=View.VISIBLE
                 }
             }
 

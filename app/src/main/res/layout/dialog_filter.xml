@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filter by Deadline and Client"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/btnSelectDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Deadline"
+        android:backgroundTint="@color/blue"
+        android:textColor="@color/white"
+        android:padding="8dp"
+        android:layout_marginBottom="16dp" />
+
+    <Spinner
+        android:id="@+id/spinnerClient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/btnApplyFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apply Filter"
+        android:backgroundTint="@color/blue"
+        android:textColor="@color/white"
+        android:padding="8dp"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/btnClearFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Clear Filter"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        android:padding="8dp" />
+</LinearLayout>

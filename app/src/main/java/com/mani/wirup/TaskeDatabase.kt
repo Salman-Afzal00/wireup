@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [Task::class, Note::class, Client::class],
-    version = 2, // Reset version to 1
+    version = 4, // Reset version to 1
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

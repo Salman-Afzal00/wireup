@@ -28,6 +28,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -59,6 +61,9 @@ class NotesFragment : Fragment() {
     private var isRecording = false
     private var audioFile: File? = null
 
+    private lateinit var recyclerViewSuggestedTasks: RecyclerView
+    private lateinit var suggestedTasksAdapter: SuggestedTasksAdapter
+
     // Register for voice input
 
     override fun onCreateView(
@@ -66,6 +71,11 @@ class NotesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_notes, container, false)
+
+        recyclerViewSuggestedTasks = view.findViewById(R.id.recyclerViewSuggestedTasks)
+        recyclerViewSuggestedTasks.layoutManager = LinearLayoutManager(requireContext())
+        suggestedTasksAdapter = SuggestedTasksAdapter() // Initialize the adapter
+        recyclerViewSuggestedTasks.adapter = suggestedTasksAdapter
 
         // Initialize note edit view
         editTextContent = view.findViewById(R.id.editTextContent)
@@ -261,16 +271,21 @@ class NotesFragment : Fragment() {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        Log.d("UPLOAD", "Audio uploaded: ${responseBody.summary}") // Use summary
-
+                        Log.d("UPLOAD", "Audio uploaded: ${responseBody.summary}")
+                        Log.d("UPLOAD", "Suggestions: ${responseBody.suggestions}")
 
                         if (isAdded) { // Check if the fragment is still attached
                             requireActivity().runOnUiThread {
-                                editTextContent.setText(responseBody.summary) // Use summary
+                                // Set the summary in the EditText
+                                editTextContent.setText(responseBody.summary)
+
+                                // Update RecyclerView with suggested tasks
+                                val tasks = responseBody.suggestions ?: emptyList()
+                                suggestedTasksAdapter.updateSuggestedTasks(tasks) // Update the adapter
+                                recyclerViewSuggestedTasks.visibility = View.VISIBLE
+
                                 Toast.makeText(requireContext(), "Audio uploaded successfully", Toast.LENGTH_SHORT).show()
                             }
-                        } else {
-                            Log.e("UPLOAD", "Fragment is not attached")
                         }
                     } else {
                         Log.e("UPLOAD", "Upload response is null")
@@ -302,7 +317,10 @@ class NotesFragment : Fragment() {
         })
     }
     private fun boldSpecificWords() {
-        val wordsToBold = listOf("Note", "Mood and Wellbeing","#", "upload","Sleep","Needs","Suggested Tasks","Summary")
+        val wordsToBold = listOf("Note", "Mood and Wellbeing","#", "upload","Sleep","Needs",
+            "Suggested Tasks","Summary","Risk to self (Suicidal Ideations, self harm)","Triggers",
+            "Risk to others","Appetite","Medication","Day to Day","Safeguarding concerns",
+            "Email to Liase with Other Staff","Referral to Service","Next Steps","Recommendations")
         val originalText = editTextContent.text.toString()
         val spannableStringBuilder = SpannableStringBuilder(originalText)
 
