@@ -13,7 +13,7 @@
         android:id="@+id/tvNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Notes"
+        android:text="Create new"
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -28,14 +28,18 @@
         android:id="@+id/scrollable"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/add_note_bg"
-        app:layout_constraintTop_toBottomOf="@id/tvNotes"
-        app:layout_constraintBottom_toTopOf="@id/layoutVoice">
+        app:layout_constraintBottom_toTopOf="@id/layoutVoice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvNotes">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <!-- Buttons Layout -->
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -73,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:padding="7dp"
-                    android:src="@drawable/send"
+                    android:src="@drawable/send_icon"
                     app:layout_constraintStart_toEndOf="@id/btnCopy"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,16 +97,16 @@
                     android:id="@+id/edtTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:hint="Title"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/task_bg"
-                    android:textColorHint="@color/black"
                     android:fontFamily="@font/sf"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:hint="Title"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@id/editTextContent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/editTextContent"
@@ -130,6 +134,8 @@
         android:id="@+id/layoutVoice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/voice_layout"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -151,24 +157,25 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-
-            <Button
-                android:id="@+id/recordButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/microphone"
-                android:text="Start Recording"
-                android:textColor="@color/light_gray"
-                android:background="@drawable/edt_elda_bg"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp"
-                android:paddingStart="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvAdjust" />
+        <Button
+            android:id="@+id/recordButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/edt_elda_bg"
+            android:drawableLeft="@drawable/microphone"
+            android:paddingStart="10dp"
+            android:text="Start Recording"
+            android:shadowColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/light_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAdjust" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

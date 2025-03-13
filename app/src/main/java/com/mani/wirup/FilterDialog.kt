@@ -3,23 +3,24 @@ package com.mani.wirup
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.Spinner
+import android.widget.ListView
 import androidx.lifecycle.ViewModelProvider
 import java.text.SimpleDateFormat
 import java.util.*
 
 class FilterDialog(
     context: Context,
-    private val onFilterApplied: (selectedDate: String?, selectedClientId: Int?) -> Unit // Change to Int?
+    private val onFilterApplied: (selectedDate: String?, selectedClientId: Int?) -> Unit
 ) {
     private val dialog: AlertDialog
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     private lateinit var clientViewModel: ClientViewModel
-    private var clients: List<Client> = emptyList() // Store the list of clients
+    private var clients: List<Client> = emptyList()
+    private var selectedClientId: Int? = null
+    private var selectedClientName: String? = null
 
     init {
         // Inflate the dialog layout
@@ -27,7 +28,7 @@ class FilterDialog(
         val view = inflater.inflate(R.layout.dialog_filter, null)
 
         // Initialize UI components
-        val spinnerClient = view.findViewById<Spinner>(R.id.spinnerClient)
+        val btnSelectClient = view.findViewById<Button>(R.id.btnSelectClient)
         val btnSelectDate = view.findViewById<Button>(R.id.btnSelectDate)
         val btnApplyFilter = view.findViewById<Button>(R.id.btnApplyFilter)
         val btnClearFilter = view.findViewById<Button>(R.id.btnClearFilter)
@@ -42,18 +43,9 @@ class FilterDialog(
             )
         ).get(ClientViewModel::class.java)
 
-        // Load clients into the spinner
-        val clientAdapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item)
-        clientAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerClient.adapter = clientAdapter
-
         // Observe client data
-        clientViewModel.allClients.observe(context as androidx.fragment.app.FragmentActivity) { clientList ->
-            clients = clientList // Store the list of clients
-            val clientNames = clientList.map { it.name }
-            clientAdapter.clear()
-            clientAdapter.addAll(clientNames)
-            clientAdapter.notifyDataSetChanged()
+        clientViewModel.allClients.observe(context) { clientList ->
+            clients = clientList
         }
 
         // Date picker
@@ -74,21 +66,47 @@ class FilterDialog(
             datePickerDialog.show()
         }
 
-        // Create the dialog
+        // Client selection dialog
+        btnSelectClient.setOnClickListener {
+            val clientDialogView = LayoutInflater.from(context).inflate(R.layout.dialog_client_list, null)
+            val clientListView = clientDialogView.findViewById<ListView>(R.id.clientListView)
+            val clientNames = clients.map { it.name }
+            val clientAdapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, clientNames)
+            clientListView.adapter = clientAdapter
+
+            val clientDialog = AlertDialog.Builder(context)
+                .setView(clientDialogView)
+                .setTitle("Select Client")
+                .create()
+
+            clientListView.setOnItemClickListener { _, _, position, _ ->
+                selectedClientName = clientNames[position]
+                selectedClientId = clients[position].id
+                btnSelectClient.text = selectedClientName
+                clientDialog.dismiss()
+            }
+
+            clientDialog.show()
+        }
+
+        // Create the main dialog
         dialog = AlertDialog.Builder(context)
             .setView(view)
             .create()
 
         // Apply filter
         btnApplyFilter.setOnClickListener {
-            val selectedClientName = spinnerClient.selectedItem as? String
-            val selectedClientId = clients.find { it.name == selectedClientName }?.id // Map name to ID
             onFilterApplied(selectedDate, selectedClientId)
             dialog.dismiss()
         }
 
         // Clear filter
         btnClearFilter.setOnClickListener {
+            selectedDate = null
+            selectedClientId = null
+            selectedClientName = null
+            btnSelectDate.text = "Select Deadline"
+            btnSelectClient.text = "Select Client"
             onFilterApplied(null, null)
             dialog.dismiss()
         }

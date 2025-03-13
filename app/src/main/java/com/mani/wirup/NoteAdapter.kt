@@ -1,5 +1,6 @@
 package com.mani.wirup
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 class NoteAdapter(
-    private val onNoteClicked: (Note) -> Unit,
-    private val onNoteDeleted: (Note) -> Unit // Add this callback
+    private val onNoteDeleted: (Note) -> Unit,
+    private val onNoteClicked: (Note) -> Unit // Add this parameter for note click handling
 ) : ListAdapter<Note, NoteAdapter.NoteViewHolder>(NoteDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -25,27 +26,23 @@ class NoteAdapter(
     }
 
     inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val noteTitle: TextView = itemView.findViewById(R.id.noteTitle)
-        //private val noteContent: TextView = itemView.findViewById(R.id.noteContent)
-        private val deleteButton: ImageButton = itemView.findViewById(R.id.deleteButton) // Add this
+        private val tvNoteTitle: TextView = itemView.findViewById(R.id.noteTitle)
+        private val deleteButton: ImageButton = itemView.findViewById(R.id.deleteButton)
 
         fun bind(note: Note) {
-            noteTitle.text = note.title
-            //noteContent.text = note.content
+            tvNoteTitle.text = note.title
 
-            // Handle note click (for editing)
+            // Set click listener for the note item
             itemView.setOnClickListener {
-                onNoteClicked(note)
+                onNoteClicked(note) // Trigger the click handler
             }
 
-            // Handle delete button click
             deleteButton.setOnClickListener {
                 onNoteDeleted(note)
             }
         }
     }
 
-    // DiffUtil callback to compare notes
     class NoteDiffCallback : DiffUtil.ItemCallback<Note>() {
         override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
             return oldItem.id == newItem.id

@@ -11,7 +11,6 @@ class ClientAdapter(
     private val onClientClicked: (Client) -> Unit
 ) : RecyclerView.Adapter<ClientAdapter.ClientViewHolder>() {
 
-    // Update the list of clients
     fun updateClients(newClients: List<Client>) {
         clients = newClients
         notifyDataSetChanged()
@@ -37,7 +36,6 @@ class ClientAdapter(
             clientName.text = client.name
             clientId.text = "NHS ID: ${client.id}"
 
-            // Handle client click
             itemView.setOnClickListener {
                 onClientClicked(client)
             }

@@ -20,9 +20,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MeetingTaskAdapter(
-    private val clientRepository: ClientRepository, // To fetch client details
-    private val context: Context, // For notifications and alarms
-    private val onStartNowClicked: (Task) -> Unit // Callback for "Start Now" button
+    private val clientRepository: ClientRepository,
+    private val context: Context,
+    private val onStartNowClicked: (Task) -> Unit
 ) : ListAdapter<Task, MeetingTaskAdapter.MeetingTaskViewHolder>(TaskDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MeetingTaskViewHolder {
@@ -34,13 +34,12 @@ class MeetingTaskAdapter(
         val task = getItem(position)
         holder.bind(task)
 
-        // Set background color based on position
-        val colorResId = when (position % 4) { // Change 4 to the number of colors you have
+        val colorResId = when (position % 4) {
             0 -> R.color.task_bg
             1 -> R.color.color2
             2 -> R.color.color3
             3 -> R.color.color4
-            else -> R.color.color2 // Default color
+            else -> R.color.color2
         }
         val backgroundColor = ContextCompat.getColor(context, colorResId)
         val drawable = AppCompatResources.getDrawable(context, R.drawable.meeting_item_bg)?.mutate()
@@ -50,7 +49,7 @@ class MeetingTaskAdapter(
 
     inner class MeetingTaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val taskTitle: TextView = itemView.findViewById(R.id.taskTitle)
-//        private val taskTime: TextView = itemView.findViewById(R.id.taskTime)
+        private val taskTime: TextView = itemView.findViewById(R.id.taskTime)
         private val tvClientName: TextView = itemView.findViewById(R.id.tvClientName)
         private val tvPriority: TextView = itemView.findViewById(R.id.tvPriority)
         private val btnStartNow: Button = itemView.findViewById(R.id.btnStartNow)
@@ -59,8 +58,8 @@ class MeetingTaskAdapter(
             // Bind task data to views
             taskTitle.text = task.title
             tvPriority.text = task.priority
+            taskTime.text = "Today"
 
-            // Fetch and display client name
             task.clientId?.let { clientId ->
                 CoroutineScope(Dispatchers.Main).launch {
                     val client = clientRepository.getClientById(clientId)
@@ -68,7 +67,6 @@ class MeetingTaskAdapter(
                 }
             }
 
-            // Handle "Start Now" button click
             btnStartNow.setOnClickListener {
                 onStartNowClicked(task)
             }

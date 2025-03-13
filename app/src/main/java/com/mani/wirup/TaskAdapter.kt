@@ -1,5 +1,6 @@
 package com.mani.wirup
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +18,7 @@ class TaskAdapter(
     private val onTaskDeleted: (Task) -> Unit,
     private val onTaskClicked: (Task) -> Unit,
     private val showButtons: Boolean = true,
-    private val showCompleteButton: Boolean = true // Add this parameter
+    private val showCompleteButton: Boolean = true
 ) : ListAdapter<Task, TaskAdapter.TaskViewHolder>(TaskDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -44,13 +45,18 @@ class TaskAdapter(
             taskTitle.text = task.title
             tvpriority.text = task.priority
 
-
-            when {
-                DateUtils.isToday(task.date) -> tvDay.text = "Today"
-                DateUtils.isThisWeek(task.date) -> tvDay.text = "This week"
-                DateUtils.isPastDate(task.date) -> tvDay.text = "Past"
-                else -> tvDay.text = "Upcoming" // No label for other dates
+            // Handle empty or invalid date strings
+            if (task.date.isNullOrEmpty()) {
+                tvDay.text = "No Date" // Set a default value for empty dates
+            } else {
+                when {
+                    DateUtils.isToday(task.date) -> tvDay.text = "Today"
+                    DateUtils.isThisWeek(task.date) -> tvDay.text = "This week"
+                    DateUtils.isPastDate(task.date) -> tvDay.text = "Past"
+                    else -> tvDay.text = "Upcoming" // No label for other dates
+                }
             }
+
             if (!task.addToCalendar) {
                 taskAddToCalendar.text = "Add to calendar"
                 taskAddToCalendar.visibility = View.VISIBLE
@@ -83,8 +89,10 @@ class TaskAdapter(
                     taskImageButton.isEnabled = true
                     deleteButton.visibility = View.VISIBLE
                     deleteButton.isEnabled = true
+                    tvDay.visibility= View.GONE
+                    taskAddToCalendar.visibility=View.GONE
                     tvpriority.visibility = View.GONE
-                    tvCompleted.visibility=View.GONE
+                    tvCompleted.visibility = View.GONE
                 }
                 task.isPending && !task.isCompleted -> {
                     taskImageButton.visibility = View.GONE
@@ -92,7 +100,7 @@ class TaskAdapter(
                     deleteButton.visibility = View.GONE
                     deleteButton.isEnabled = false
                     tvpriority.visibility = View.VISIBLE
-                    tvCompleted.visibility=View.GONE
+                    tvCompleted.visibility = View.GONE
                 }
                 task.isCompleted -> {
                     taskImageButton.visibility = View.GONE
@@ -100,7 +108,9 @@ class TaskAdapter(
                     deleteButton.visibility = View.GONE
                     deleteButton.isEnabled = false
                     tvpriority.visibility = View.GONE
-                    tvCompleted.visibility=View.VISIBLE
+                    tvCompleted.visibility = View.VISIBLE
+                    tvDay.visibility= View.GONE
+                    taskAddToCalendar.visibility=View.GONE
                 }
             }
 
@@ -111,12 +121,12 @@ class TaskAdapter(
             }
 
             taskCompleteButton.setOnClickListener {
-                val updatedTask = task.copy(isCompleted = !task.isCompleted, isPending = false)
+                val updatedTask = task.copy(isCompleted = !task.isCompleted, isPending = false, isSuggested = false)
                 onTaskChecked(updatedTask)
             }
 
             taskImageButton.setOnClickListener {
-                val updatedTask = task.copy(isPending = true, isCompleted = false)
+                val updatedTask = task.copy(isPending = true, isCompleted = false, isSuggested = false)
                 onTaskPending(updatedTask)
             }
 
@@ -124,7 +134,7 @@ class TaskAdapter(
                 onTaskDeleted(task)
             }
 
-            if (!task.isPending && !task.isCompleted) {
+            if (!task.isSuggested && !task.isCompleted) {
                 itemView.setOnClickListener {
                     onTaskClicked(task)
                 }

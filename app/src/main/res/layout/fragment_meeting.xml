@@ -1,67 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="0dp">
 
+    <!-- Header Section -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/user_intro_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/userImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/image_user_bg"
-            android:fontFamily="@font/sf"
-            android:padding="10dp"
-            android:text="SB"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="20sp"
+        <!-- Smaller userImage CardView -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/userImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:cardCornerRadius="40dp"
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/userImg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/image_user_bg"
+                android:fontFamily="@font/sf"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="SB"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/textViewUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="0dp"
             android:drawableRight="@drawable/hay_ic"
             android:drawablePadding="5dp"
             android:fontFamily="@font/sf"
             android:text="Welcome"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@id/userImg"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/userImage"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <TextView
             android:id="@+id/blessings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="0dp"
             android:text="Good day"
             android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@id/userImg"
+            app:layout_constraintStart_toEndOf="@id/userImage"
             app:layout_constraintTop_toBottomOf="@id/textViewUserName" />
 
         <ImageButton
             android:id="@+id/goToCalender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="20dp"
             android:background="@android:color/transparent"
             android:src="@drawable/plus"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -70,25 +89,28 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+    <!-- Schedule Section -->
     <TextView
         android:id="@+id/tvSchedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Upcoming Meetings"
+        android:layout_marginTop="10dp"
+        android:text="Now"
         android:textColor="@color/black"
         android:textSize="25sp"
+        android:fontFamily="@font/sf"
+        android:layout_marginStart="35dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header" />
 
+    <!-- Empty View -->
     <ImageView
         android:id="@+id/emptyView"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:gravity="center"
-        android:src="@drawable/meeting"
+        android:src="@drawable/empt_meeting"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,15 +119,110 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5" />
 
+    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMeeting"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toTopOf="@id/layoutElda"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSchedule" />
+
+    <!-- Elda Section -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutElda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:background="@drawable/meeting_elda_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="visible">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardElevation="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                >
+
+                <TextView
+                    android:id="@+id/textViewQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/sf"
+                    android:text="Need something specific?"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toTopOf="@id/btnRecord"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnRecord"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/edt_elda_bg"
+                    android:drawableLeft="@drawable/microphone"
+                    android:drawablePadding="5dp"
+                    android:padding="10dp"
+                    android:paddingStart="15dp"
+                    android:text="say or write here whatever you need"
+                    android:textAllCaps="false"
+                    android:textColor="@color/gray"
+                    android:textSize="13sp"
+                    android:backgroundTint="@color/voice_layout_bg"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewQuestion" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Chat Section -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutChat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/layoutChatElda"
+            layout="@layout/layout_chat_elda"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

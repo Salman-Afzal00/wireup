@@ -32,6 +32,7 @@
         app:itemIconTint="@color/color_nav"
         app:itemTextColor="@color/color_nav"
         app:itemIconSize="18dp"
+        android:layout_gravity="bottom"
         app:labelVisibilityMode="labeled"
         app:itemActiveIndicatorStyle="@style/App.Custom.Indicator" />
 

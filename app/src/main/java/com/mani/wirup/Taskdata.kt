@@ -16,7 +16,8 @@ data class Task(
     val isCompleted: Boolean = false,
     val isPending: Boolean = false,
     val content: String,
-    val clientId: Int? = null, // Added clientId
-    val duration: Long = 0 ,
-    val addToCalendar: Boolean = false
+    val clientId: Int? = null,
+    val duration: Long = 0,
+    val addToCalendar: Boolean = false,
+    val isSuggested: Boolean = false // Add this field
 ) : Parcelable

@@ -16,8 +16,7 @@ class ClientViewModel(private val clientRepository: ClientRepository) : ViewMode
             if (existingClient == null) {
                 clientRepository.insert(client)
             } else {
-                // Handle duplicate ID case (e.g., show an error message)
-
+                  null
             }
         }
     }

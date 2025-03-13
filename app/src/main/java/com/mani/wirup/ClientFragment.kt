@@ -32,7 +32,6 @@ class  ClientFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewClients)
         val adapter = ClientAdapter(emptyList()) { client ->
-            // Open ClientDetailsActivity with client information
             val intent = Intent(requireContext(), ClientDetailsActivity::class.java).apply {
                 putExtra("CLIENT", client)
             }
@@ -42,7 +41,13 @@ class  ClientFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         clientViewModel.allClients.observe(viewLifecycleOwner, Observer { clients ->
-            clients?.let { adapter.updateClients(it) }
+            clients?.let { adapter.updateClients(it)
+            if (it.isEmpty()){
+                view.findViewById<View>(R.id.emptyView).visibility = View.VISIBLE
+            }else{
+                view.findViewById<View>(R.id.emptyView).visibility = View.GONE
+            }
+            }
         })
 
         val fabAddClient = view.findViewById<FloatingActionButton>(R.id.fabAddClient)

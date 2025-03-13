@@ -27,36 +27,34 @@
         <receiver android:name=".TaskCompletionReceiver" />
 
         <activity
-            android:name=".ClientDetailsActivity"
-            android:screenOrientation="portrait"
-            android:exported="false"
-            android:theme="@style/Theme.Add." />
+            android:name=".AddNoteActivity"
+            android:theme="@style/Theme.Add."
+            android:exported="false" />
 
         <activity
-            android:name=".AddTaskActivity"
-            android:screenOrientation="portrait"
+            android:name=".ClientDetailsActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Add." />
         <activity
             android:name=".signupok"
-            android:screenOrientation="portrait"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.signupok" />
         <activity
             android:name=".ForgotPassword"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="portrait"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.SignUp" />
         <activity
             android:name=".Register"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Base.CardView" />
-
         <activity
             android:name=".Password"
             android:exported="false"
@@ -71,12 +69,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Main"/>
+            android:theme="@style/Theme.Main" />
     </application>
 
 </manifest>

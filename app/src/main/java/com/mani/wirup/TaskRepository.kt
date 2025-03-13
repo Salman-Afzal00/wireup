@@ -11,9 +11,20 @@ class TaskRepository(private val taskDao: TaskDao) {
     suspend fun insert(task: Task) {
         taskDao.insert(task)
     }
-    fun insertSuggestedTasks(tasks: List<Task>) {
+
+    suspend fun saveTask(task: Task) {
+        val existingTask = taskDao.getTaskById(task.id)
+        if (existingTask != null) {
+            taskDao.update(task) // Update existing task
+        } else {
+            taskDao.insert(task) // Insert new task
+        }
+    }
+
+    suspend fun insertSuggestedTasks(tasks: List<Task>) {
         taskDao.insertAll(tasks)
     }
+
     suspend fun update(task: Task) {
         taskDao.update(task)
     }
@@ -25,6 +36,9 @@ class TaskRepository(private val taskDao: TaskDao) {
     fun getTasksForMeeting(): LiveData<List<Task>> {
         return taskDao.getTasksForMeeting()
     }
+    fun refreshPendingTasks() {
+        val pendingTasks = taskDao.getPendingTasks()
+    }
 
     fun getTasksByDate(date: String): LiveData<List<Task>> {
         return taskDao.getTasksByDate(date)
@@ -33,11 +47,11 @@ class TaskRepository(private val taskDao: TaskDao) {
     suspend fun deleteAllCompletedTasks() {
         taskDao.deleteAllCompletedTasks()
     }
+
     suspend fun getTaskById(taskId: Long): Task? {
         return taskDao.getTaskById(taskId)
     }
 
-    // New function to get tasks by client ID
     fun getTasksByClientId(clientId: Int): LiveData<List<Task>> {
         return taskDao.getTasksByClientId(clientId)
     }

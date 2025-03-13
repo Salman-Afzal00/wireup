@@ -94,8 +94,9 @@ class AddTaskDialog : DialogFragment() {
                         priority = priority,
                         clientId = client.id,
                         duration = duration,
-                        isPending = true, // New tasks go to Pending section
-                        addToCalendar = addToCalendarChecked // Include the checkbox state
+                        isPending = true,
+                        isSuggested = false,
+                        addToCalendar = addToCalendarChecked
                     ) ?: Task(
                         title = title,
                         date = date,
@@ -103,20 +104,16 @@ class AddTaskDialog : DialogFragment() {
                         priority = priority,
                         clientId = client.id,
                         duration = duration,
-                        isPending = true, // New tasks go to Pending section
-                        addToCalendar = addToCalendarChecked // Include the checkbox state
+                        isPending = true,
+                        addToCalendar = addToCalendarChecked,
+                        isSuggested = false
                     )
+                    taskViewModel.saveTask(task)
 
-                    // Add the task to the database
-                    taskViewModel.insert(task)
-
-                    // Add the task to the calendar if the checkbox is checked
                     if (addToCalendarChecked) {
                         addTaskToCalendar(title, date, duration)
                     }
-
-                    // Notify the listener (TaskFragment) about the new task
-                    (parentFragment as? TaskFragment)?.onTaskAdded(task)
+                    (parentFragment as? TaskFragment)?.onTaskAdded(task) // Call onTaskAdded
                     dismiss()
                 } ?: run {
                     Toast.makeText(requireContext(), "Please select a client", Toast.LENGTH_SHORT).show()

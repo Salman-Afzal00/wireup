@@ -4,84 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".TaskFragment">
 
+    <TextView
+        android:id="@+id/tvTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Tasks"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Switch -->
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All Tasks"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tvTasks"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="16dp" />
+
+    <!-- Sort Button -->
+    <ImageButton
+        android:id="@+id/btnSortPending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sort"
+        android:background="@android:color/transparent"
+        android:padding="8dp"
+        android:layout_marginTop="5dp"
+       app:layout_constraintTop_toBottomOf="@id/tvTasks"
+        app:layout_constraintEnd_toStartOf="@id/btnFilter"
+        android:layout_marginEnd="8dp" />
+
+    <!-- Filter Button -->
+    <ImageButton
+        android:id="@+id/btnFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/adjustment"
+        android:background="@android:color/transparent"
+        android:padding="8dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTasks"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp" />
+
+    <!-- Calendar View -->
+    <com.kizitonwose.calendar.view.WeekCalendarView
+        android:id="@+id/weekly"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        app:cv_dayViewResource="@layout/day_view"
+        app:cv_daySize="rectangle"
+        app:cv_orientation="horizontal"
+        app:cv_outDateStyle="endOfRow"
+        android:visibility="visible"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintTop_toBottomOf="@id/switchView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- NestedScrollView starts from Suggested Tasks -->
     <androidx.core.widget.NestedScrollView
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/weekly"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="16dp">
+            android:padding="16dp">
 
-            <!-- Title -->
+            <!-- Suggested Tasks -->
             <TextView
-                android:id="@+id/tvTasks"
+                android:id="@+id/tvSuggestedTasks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tasks"
+                android:text="Suggested Tasks"
+                android:textSize="20sp"
                 android:textColor="@color/black"
-                android:textSize="24sp"
                 android:textStyle="bold"
-                android:layout_gravity="center_horizontal"
-                android:paddingTop="16dp" />
-
-            <!-- Suggested Tasks and Sort Button -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="12dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/tvSuggestedTasks"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Suggested Tasks"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/sf"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:drawableStart="@drawable/ic_arrow_down"
-                    android:drawablePadding="12dp" />
-
-
-
-                <ImageButton
-                    android:id="@+id/btnFilter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                   android:background="@android:color/transparent"
-                    android:src="@drawable/adjustment"
-                    android:textColor="@color/white"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="8dp"
-                    android:layout_marginStart="8dp" />
-
-                <ImageButton
-                    android:id="@+id/btnSortPending"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/sort"
-                    android:background="@android:color/transparent"
-                    android:textColor="@color/white"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="8dp"
-                    android:layout_marginStart="0dp" />
-            </LinearLayout>
+                android:layout_marginTop="16dp"
+                android:drawableStart="@drawable/ic_arrow_up"
+                android:drawablePadding="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/suggestedRecyclerView"
@@ -89,7 +112,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:minHeight="150dp"
-                android:visibility="gone" />
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/tvSuggestedTasks"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <!-- Pending Tasks -->
             <TextView
@@ -100,13 +126,24 @@
                 android:textSize="20sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/sf"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
                 android:drawableStart="@drawable/ic_arrow_up"
-                android:drawablePadding="12dp" />
+                android:drawablePadding="10dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/suggestedRecyclerView"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/emptyView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/notask"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/tvPendingTasks"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tvCompletedTasks"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/pendingRecyclerView"
@@ -114,51 +151,51 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:minHeight="150dp"
-                android:visibility="visible" />
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/tvPendingTasks"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <!-- Completed Tasks -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvCompletedTasks"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="12dp"
-                android:gravity="center_vertical">
+                android:text="Completed Tasks"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:drawableStart="@drawable/ic_arrow_up"
+                android:drawablePadding="10dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/pendingRecyclerView"
+                app:layout_constraintStart_toStartOf="parent" />
 
-                <TextView
-                    android:id="@+id/tvCompletedTasks"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Completed Tasks"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/sf"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:drawableStart="@drawable/ic_arrow_up"
-                    android:drawablePadding="12dp" />
+            <ImageButton
+                android:id="@+id/btnDeleteAllCompleted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/more"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/pendingRecyclerView"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
 
-                <ImageButton
-                    android:id="@+id/btnDeleteAllCompleted"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/more"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp" />
-
-                <TextView
-                    android:id="@+id/tvDeleteAll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="delete all"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/sf"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp"
-                    android:visibility="gone" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tvDeleteAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="delete all"
+                android:textColor="@color/black"
+                android:fontFamily="@font/sf"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/pendingRecyclerView"
+                app:layout_constraintEnd_toStartOf="@id/btnDeleteAllCompleted"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/completedRecyclerView"
@@ -166,19 +203,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:minHeight="150dp"
-                android:visibility="visible" />
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/tvCompletedTasks"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Floating Action Button (FAB) -->
+    <!-- FAB for Adding Tasks -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddTask"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:backgroundTint="@color/blue"
+        android:layout_margin="16dp"
         android:src="@drawable/icon_add"
+        android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:shapeAppearanceOverlay="@style/fab_square" />

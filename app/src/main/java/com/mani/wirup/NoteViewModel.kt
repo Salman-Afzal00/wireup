@@ -9,13 +9,22 @@ class NoteViewModel(
     private val noteRepository: NoteRepository
 ) : ViewModel() {
 
-    val note: LiveData<Note?> = noteRepository.note
+    val allNotes: LiveData<List<Note>> = noteRepository.allNotes
+
 
     fun insert(note: Note) = viewModelScope.launch {
         noteRepository.insert(note)
     }
 
-    fun deleteAll() = viewModelScope.launch {
-        noteRepository.deleteAll()
+    fun update(note: Note) = viewModelScope.launch {
+        noteRepository.update(note)
+    }
+
+     fun getNoteById(noteId: Long): LiveData<Note?> {
+        return noteRepository.getNoteById(noteId)
+    }
+
+    fun delete(noteId: Long) = viewModelScope.launch {
+        noteRepository.delete(noteId)
     }
 }
